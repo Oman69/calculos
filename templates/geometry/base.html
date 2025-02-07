@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>{% block h1 %}Заголовок H1{% endblock %}</h1>
+<h5>{% block h2 %}Заголовок H2{% endblock %}</h5>
+<div class="main_form">
+    <div class="border-form">
+
+        {% block form_url %}
+        <form action="{{ url_for('circle_area_result') }}" method="get"> {% endblock %}
+            <div class="mb-3">
+                <label class="form-label" for="radius">{% block form_label %}Введите радиус окружности{% endblock
+                    %}</label>
+                <input type="text" class="form-control" id="radius" name="radius">
+            </div>
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
+
+
+    {% if result %}
+        <div class="result_field">
+            <h3>{% block h3 %}Заголовок H3{% endblock %} равна: <span> {{ result }} </span></h3>
+        </div>
+    {% endif %}
+    </div>
+    <div class="schema-img">
+        {% block schema_img %}
+        <img src="{{ url_for('static', path='images/logo.png') }}" alt="">
+        {% endblock %}
+    </div>
+</div>
+<div class="main-descript">
+{% block main_descript %}
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis?</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis?</p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
+        maxime, mollitia natus nisi quia quibusdam quidem quos sed? Aut fugit ipsam nisi quis repellat tenetur
+        veritatis?</p>
+    {% endblock %}
+</div>
+{% endblock %}

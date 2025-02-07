@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Онлайн калькуляторы{% endblock %}
+{% block body %}
+<div class="select-block">
+    <span></span>
+    <select class="form-select" id="selectMenu">
+        <option value="6" selected>Показать: 6</option>
+        <option value="12">Показать: 12</option>
+        <option value="100">Показать: все</option>
+    </select>
+</div>
+<h1>{{ h1 }}</h1>
+<div class="links-block">
+    {% for item in links %}
+    <a href="{{ url_for(item.slug) }}">
+    <div class="link">
+        {{item.name }}
+    </div></a>
+    {% endfor %}
+</div>
+
+{% endblock %}
