@@ -91,11 +91,14 @@ a {
 .links-block > a > .link {
     background-color: #f2f2f2;
     border-radius: 10px;
-    padding: 30px 30px;
+    padding: 20px 30px;
     font-size: 1.2em;
     font-weight: 600;
     transition: all 0.5s ease-out;
-    height: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    line-height: 1.1em;
 }
 
 
@@ -104,4 +107,9 @@ a {
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     -moz-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
     box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+
+.link-img > img {
+    display: block;
+    max-width: 100%;
 }
