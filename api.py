@@ -16,7 +16,9 @@ app.include_router(math_router)
 def home_page(request: Request, category: int = 1, limit: int = 6):
     headers = {1: 'Геометрические калькуляторы',
                2: 'Финансовые калькуляторы',
-               3: 'Строительные калькуляторы', }
+               3: 'Строительные калькуляторы',
+               4: 'Конвертеры величин',
+               5: 'Генераторы', }
 
     header_h1 = headers.get(category, 'Заголовок H1')
 
@@ -35,10 +37,13 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
                 'image': 'images/tr2_s.png'},
                {'category': 1, 'name': 'Высота равностороннего треугольника', 'slug': 'circle_area',
                 'image': 'images/tr2_h.png'},
-               {'category': 1, 'name': 'Площадь квадрата', 'slug': 'circle_area',
-                'image': 'images/kv_s.png'},
-               {'category': 1, 'name': 'Периметр квадрата', 'slug': 'circle_area',
-                'image': 'images/kv_p.png'},
+               {'category': 1, 'name': 'Площадь квадрата', 'slug': 'circle_area', 'image': 'images/kv_s.png'},
+               {'category': 1, 'name': 'Периметр квадрата', 'slug': 'circle_area', 'image': 'images/kv_p.png'},
+               {'category': 1, 'name': 'Площадь ромба', 'slug': 'circle_area', 'image': 'images/kv_s.png'},
+               {'category': 1, 'name': 'Периметр ромба', 'slug': 'circle_area', 'image': 'images/kv_p.png'},
+               {'category': 1, 'name': 'Площадь трапеции', 'slug': 'circle_area', 'image': 'images/kv_s.png'},
+               {'category': 1, 'name': 'Периметр трапеции', 'slug': 'circle_area', 'image': 'images/kv_p.png'},
+
                ]
 
     filter_data = [i for i in fake_db if i['category'] == category][:limit]
