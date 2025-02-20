@@ -49,4 +49,14 @@
         veritatis?</p>
     {% endblock %}
 </div>
+{% if similar_pages|length > 0 %}
+<h4>Похожие запросы</h4>
+<div class="similar-links">
+    {% for i in similar_pages %}
+
+    <a href="{{ url_for(i.slug) }}"><p>{{ i.name }}</p></a>
+    {% endfor %}
+{% endif %}
+</div>
 {% endblock %}
+

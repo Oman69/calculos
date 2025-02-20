@@ -6,12 +6,24 @@ a {
 
 }
 .header {
+    display: grid;
     height: 100px;
+    grid-template-columns: 1fr 3fr 1fr;
+
 }
 
 .header > a > img {
     height: 90%;
 }
+
+.search-panel {
+    height: 40px;
+    border-bottom: 1px  dashed #aeaeae;
+    margin: 30px 15px;
+    color: #555454;
+    text-align: right;
+}
+
 
 .base_navbar {
     background-color: #f2f2f2;
@@ -120,6 +132,12 @@ a {
 }
 
 a.selected {
-text-decoration: underline;
-background-color: #e0e0e0;
+    text-decoration: underline;
+    background-color: #DA7748;
+}
+
+.footer {
+    border-radius: 15px 15px 0 0;
+    background-color: #555454;
+    position: relative;
 }
