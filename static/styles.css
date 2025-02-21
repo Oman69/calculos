@@ -136,6 +136,11 @@ a.selected {
     background-color: #DA7748;
 }
 
+.similar-links > a > p{
+    color: #DA7748;
+    margin-bottom: 0.5em;
+}
+
 .footer {
     border-radius: 15px 15px 0 0;
     background-color: #555454;

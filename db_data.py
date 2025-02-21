@@ -46,5 +46,5 @@ fake_db = [{'category': 1, 'name': 'Площадь круга', 'slug': 'circle_
 # insert_to_db(pages, {'name': "Длина круга", 'slug': "circle_len", 'category': 1, 'image': IMAGE_FOLDER + 'circle_l.png'})
 # insert_to_db(pages, {'name': "Площадь прямоугольника", 'slug': "rectangle_area", 'category': 1, 'image': IMAGE_FOLDER + 'pr_s.png'})
 # insert_to_db(pages, {'name': "Площадь прямоугольника", 'slug': "rectangle_area", 'category': 1, 'image': IMAGE_FOLDER + 'pr_s.png'})
-# insert_to_db(pages, {'name': "Площадь треугольника", 'slug': "triangle_area", 'category': 1, 'image': IMAGE_FOLDER + 'pr_l.png'})
-# insert_to_db(pages, {'name': "Периметр треугольника", 'slug': "triangle_len", 'category': 1, 'image': IMAGE_FOLDER + 'pr_l.png'})
+insert_to_db(pages, {'name': "Площадь прямоугольного треугольника", 'slug': "right_triangle_area", 'category': 1, 'image': IMAGE_FOLDER + 'tr1_s.png'})
+insert_to_db(pages, {'name': "Гипотенуза прямоугольного треугольника", 'slug': "right_triangle_hypotenuse", 'category': 1, 'image': IMAGE_FOLDER + 'tr1_g.png'})

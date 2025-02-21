@@ -2,19 +2,13 @@
 {% block body %}
 <h1>{% block h1 %}Заголовок H1{% endblock %}</h1>
 <h5>{% block h2 %}Заголовок H2{% endblock %}</h5>
+
 <div class="main_form">
     <div class="border-form">
 
-        {% block form_url %}
-        <form action="{{ url_for('circle_area_result') }}" method="get"> {% endblock %}
-            <div class="mb-3">
-                <label class="form-label" for="radius">{% block form_label %}Введите радиус окружности{% endblock
-                    %}</label>
-                <input type="text" class="form-control" id="radius" name="radius">
-            </div>
-            <button type="submit" class="btn btn-primary">Рассчитать</button>
-        </form>
-
+{% block main_form %}
+< -- Главная форма -- >
+{% endblock %}
 
     {% if result %}
         <div class="result_field">
