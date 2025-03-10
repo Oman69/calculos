@@ -1,0 +1,18 @@
+{% extends "geometry/base.html" %}
+
+{% block title %}Найти площадь квадрата онлайн без регистрации{% endblock %}
+{% block h1 %}Площадь квадрата{% endblock %}
+{% block h2 %}найти по стороне{% endblock %}
+
+{% block main_form %}
+<form action="{{ url_for('square_area_result') }}" method="get">
+            <div class="mb-3">
+                <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
+                <input type="text" class="form-control" id="a" name="a">
+
+            </div>
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
+{% endblock %}
+
+{% block h3 %}Площадь квадрата равна{% endblock %}
