@@ -2,10 +2,10 @@
 
 {% block title %}Найти площадь прямоугольного треугольника онлайн без регистрации{% endblock %}
 {% block h1 %}Площадь прямоугольного треугольника{% endblock %}
-{% block h2 %}найти по катетам{% endblock %}
+{% block h2 %}найти по сторонам{% endblock %}
 
 {% block main_form %}
-<form action="{{ url_for('right_triangle_area_result') }}" method="get">
+<form action="{{ url_for('equ_triangle_area_result') }}" method="get">
             <div class="mb-3">
                 <label class="form-label" for="a">Введите катет <b>(A)</b></label>
                 <input type="text" class="form-control" id="a" name="a">

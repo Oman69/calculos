@@ -1,9 +1,11 @@
 import math
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ValidationError
+from typing_extensions import Annotated
 
 
 class Circle(BaseModel):
-    radius: str
+    radius: Annotated[str, Field(description="Радиус окружности", min_length=1)]
+
 
     def get_area(self):
         return round(math.pi * float(self.radius) ** 2, 2)
@@ -52,9 +54,19 @@ class IsoscelesTriangle(BaseModel):
         return (float(self.h) * float(self.c)) * 0.5
 
 
+class EquTriangle(BaseModel):
+    h: str
+    c: str
+
+    def get_area(self):
+        return (float(self.h) * float(self.c)) * 0.5
+
 class Rhombus(BaseModel):
     a: str
-    h: str
+    h: str = None
 
     def get_area(self):
         return float(self.a) * float(self.h)
+
+    def get_perimeter(self):
+        return float(self.a) * 4

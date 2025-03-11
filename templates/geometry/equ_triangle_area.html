@@ -1,11 +1,11 @@
 {% extends "geometry/base.html" %}
 
-{% block title %}Найти площадь прямоугольного треугольника онлайн без регистрации{% endblock %}
-{% block h1 %}Площадь прямоугольного треугольника{% endblock %}
+{% block title %}Найти площадь равностороннего треугольника онлайн без регистрации{% endblock %}
+{% block h1 %}Площадь равностороннего треугольника{% endblock %}
 {% block h2 %}найти по катетам{% endblock %}
 
 {% block main_form %}
-<form action="{{ url_for('right_triangle_area_result') }}" method="get">
+<form action="{{ url_for('equ_triangle_area_result') }}" method="get">
             <div class="mb-3">
                 <label class="form-label" for="a">Введите катет <b>(A)</b></label>
                 <input type="text" class="form-control" id="a" name="a">
@@ -17,4 +17,4 @@
         </form>
 {% endblock %}
 
-{% block h3 %}Площадь прямоугольного треугольника равна{% endblock %}
+{% block h3 %}Площадь равностороннего треугольника равна{% endblock %}

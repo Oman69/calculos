@@ -2,7 +2,7 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
 
-from geometry.models import RightTriangle, IsoscelesTriangle
+from geometry.models import RightTriangle, IsoscelesTriangle, EquTriangle
 
 router = APIRouter(prefix='/triangle', tags=['Triangle'])
 templates = Jinja2Templates(directory="templates")
@@ -63,3 +63,40 @@ async def isosceles_triangle_area_result(request: Request, h: str, c: str):
         request=request, name="geometry/isosceles_triangle_area.html", context={"result": result}
     )
 
+
+@router.get("/equ_triangle_area/", response_class=HTMLResponse, name='equ_triangle_area')
+def equ_triangle_area(request: Request):
+
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="geometry/equ_triangle_area.html", context={"similar_pages": []}
+    )
+
+
+@router.get("/equ_triangle_area_result/", response_class=HTMLResponse, name='equ_triangle_area_result')
+async def equ_triangle_area_result(request: Request, a: str, b: str):
+    new_rec = EquTriangle(a=a, b=b)
+    result = new_rec.get_area()
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="geometry/equ_triangle_area.html", context={"result": result}
+    )
+
+
+@router.get("/equ_triangle_height/", response_class=HTMLResponse, name='equ_triangle_height')
+def equ_triangle_height(request: Request):
+
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="geometry/equ_triangle_height.html", context={"similar_pages": []}
+    )
+
+
+@router.get("/equ_triangle_height_result/", response_class=HTMLResponse, name='equ_triangle_height_result')
+async def equ_triangle_height_result(request: Request, a: str, b: str):
+    new_rec = EquTriangle(a=a, b=b)
+    result = new_rec.get_height()
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="geometry/equ_triangle_height.html", context={"result": result}
+    )

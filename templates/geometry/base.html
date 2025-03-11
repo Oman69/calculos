@@ -10,11 +10,14 @@
 < -- Главная форма -- >
 {% endblock %}
 
-    {% if result %}
         <div class="result_field">
+        {% if result %}
             <h3>{% block h3 %}Заголовок H3{% endblock %}: <span> {{ result }} </span></h3>
+        {% endif %}
+        {% if error %}
+            <h3> <span> {{ error }} </span></h3>
+        {% endif %}
         </div>
-    {% endif %}
     </div>
     <div class="schema-img">
         {% block schema_img %}
@@ -22,6 +25,8 @@
         {% endblock %}
     </div>
 </div>
+
+
 <div class="main-descript">
 {% block main_descript %}
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci asperiores, blanditiis doloribus eligendi
