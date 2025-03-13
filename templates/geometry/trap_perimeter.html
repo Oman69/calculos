@@ -1,0 +1,17 @@
+{% extends "geometry/base.html" %}
+
+{% block title %}Найти периметр трапеции | Онлайн калькулятор{% endblock %}
+{% block h1 %}Периметр трапеции{% endblock %}
+{% block h2 %}найти через длины оснований и высоту{% endblock %}
+
+{% block main_form %}
+<form action="{{ url_for('trap_perimeter_result') }}" method="get">
+            <div class="mb-3">
+                <label class="form-label" for="a">Введите основание <b>(A)</b></label>
+                <input type="text" class="form-control" id="a" name="a">
+            </div>
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
+{% endblock %}
+
+{% block h3 %}Периметр трапеции равен{% endblock %}

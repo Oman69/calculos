@@ -47,26 +47,45 @@ class RightTriangle(BaseModel):
 
 
 class IsoscelesTriangle(BaseModel):
-    h: str
+    a: str = None
     c: str
-
-    def get_area(self):
-        return (float(self.h) * float(self.c)) * 0.5
-
-
-class EquTriangle(BaseModel):
-    h: str
-    c: str
-
-    def get_area(self):
-        return (float(self.h) * float(self.c)) * 0.5
-
-class Rhombus(BaseModel):
-    a: str
     h: str = None
 
     def get_area(self):
-        return float(self.a) * float(self.h)
+        return (float(self.h) * float(self.c)) * 0.5
+
+    def get_height(self):
+        return math.sqrt(float(self.a)**2 - (float(self.c)**2)/4)
+
+
+class EquTriangle(BaseModel):
+    a: int
+
+    def get_area(self):
+        return (self.a**2 * math.sqrt(3)) / 4
+
+    def get_height(self):
+        return self.a * math.sqrt(3) * 0.5
+
+
+class Rhombus(BaseModel):
+    a: int
+    h: int = None
+
+    def get_area(self):
+        return self.a * self.h
+
+    def get_perimeter(self):
+        return self.a * 4
+
+
+class Trap(BaseModel):
+    a: int
+    b: int
+    h: int = None
+
+    def get_area(self):
+        return (self.a + self.b) * 0.5 * self.h
 
     def get_perimeter(self):
         return float(self.a) * 4
