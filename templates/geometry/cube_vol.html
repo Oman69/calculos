@@ -1,0 +1,18 @@
+{% extends "geometry/base.html" %}
+
+{% block title %}Найти объем куба | Онлайн калькулятор {% endblock %}
+{% block h1 %}Объем куба{% endblock %}
+{% block h2 %}найти через ребро{% endblock %}
+
+{% block main_form %}
+<form action="{{ url_for('cube_volume_result') }}" method="get">
+            <div class="mb-3">
+                <label class="form-label" for="a">Введите ребро <b>(A)</b></label>
+                <input type="number" class="form-control" id="a" name="a" step="any" required>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
+{% endblock %}
+
+{% block h3 %}Объем куба равен{% endblock %}

@@ -18,7 +18,7 @@ def right_triangle_area(request: Request):
 
 
 @router.get("/right_triangle_area_result/", response_class=HTMLResponse, name='right_triangle_area_result')
-async def right_triangle_area_result(request: Request, a: str, b: str):
+async def right_triangle_area_result(request: Request, a: float, b: float):
     new_rec = RightTriangle(a=a, b=b)
     result = new_rec.get_area()
     # Получить данные
@@ -36,7 +36,7 @@ def right_triangle_hypotenuse(request: Request):
 
 
 @router.get("/right_triangle_hypotenuse_result/", response_class=HTMLResponse, name='right_triangle_hypotenuse_result')
-async def right_triangle_hypotenuse_result(request: Request, a: str, b: str):
+async def right_triangle_hypotenuse_result(request: Request, a: float, b: float):
     new_rec = RightTriangle(a=a, b=b)
     result = new_rec.get_hypotenuse()
     # Получить данные
@@ -55,7 +55,7 @@ def isosceles_triangle_area(request: Request):
 
 
 @router.get("/isosceles_triangle_area_result/", response_class=HTMLResponse, name='isosceles_triangle_area_result')
-async def isosceles_triangle_area_result(request: Request, h: str, c: str):
+async def isosceles_triangle_area_result(request: Request, h: float, c: float):
     new_tr = IsoscelesTriangle(h=h, c=c)
     result = new_tr.get_area()
     # Получить данные
@@ -69,17 +69,17 @@ def isosceles_triangle_height(request: Request):
 
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/isosceles_triangle_area.html", context={"similar_pages": []}
+        request=request, name="geometry/isosceles_triangle_height.html", context={"similar_pages": []}
     )
 
 
 @router.get("/isosceles_triangle_height_result/", response_class=HTMLResponse, name='isosceles_triangle_height_result')
-async def isosceles_triangle_height_result(request: Request, h: str, c: str):
-    new_tr = IsoscelesTriangle(h=h, c=c)
-    result = new_tr.get_area()
+async def isosceles_triangle_height_result(request: Request, a: float, c: float):
+    new_tr = IsoscelesTriangle(a=a, c=c)
+    result = new_tr.get_height()
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/isosceles_triangle_area.html", context={"result": result}
+        request=request, name="geometry/isosceles_triangle_height.html", context={"result": result}
     )
 
 

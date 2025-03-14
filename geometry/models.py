@@ -55,7 +55,7 @@ class IsoscelesTriangle(BaseModel):
         return self.h * self.c * 0.5
 
     def get_height(self):
-        return math.sqrt(self.a**2 - (self.c**2)/4)
+        return math.sqrt(self.a ** 2 - (self.c**2/4))
 
 
 class EquTriangle(BaseModel):
@@ -91,3 +91,13 @@ class Trap(BaseModel):
 
     def get_perimeter(self):
         return sum([self.a, self.b, self.c, self.d])
+
+
+class Cube(BaseModel):
+    a: float
+
+    def get_area(self):
+        return self.a ** 2 * 6
+
+    def get_volume(self):
+        return self.a ** 3
