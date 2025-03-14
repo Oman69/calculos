@@ -9,7 +9,7 @@
             <div class="mb-3">
                 <label class="form-label" for="radius">{% block form_label %}Введите радиус окружности <b>(R)</b>{% endblock
                     %}</label>
-                <input type="text" class="form-control" id="radius" name="radius">
+                <input type="number" class="form-control" id="radius" name="radius" step="any" required>
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>

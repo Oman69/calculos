@@ -17,7 +17,7 @@ def area(request: Request):
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='rectangle_area_result')
-async def area_result(request: Request, a: str, b: str):
+async def area_result(request: Request, a: float, b: float):
     new_rec = Rectangle(a=a, b=b)
     result = new_rec.get_area()
     # Получить данные
@@ -35,7 +35,7 @@ def len(request: Request):
 
 
 @router.get("/len_result/", response_class=HTMLResponse, name='rectangle_len_result')
-async def len_result(request: Request, a: str, b: str):
+async def len_result(request: Request, a: float, b: float):
     new_rec = Rectangle(a=a, b=b)
     result = new_rec.get_perimeter()
     # Получить данные

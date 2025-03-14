@@ -8,7 +8,7 @@
 <form action="{{ url_for('square_area_result') }}" method="get">
             <div class="mb-3">
                 <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
-                <input type="text" class="form-control" id="a" name="a">
+                <input type="number" class="form-control" id="a" name="a" step="any" required>
 
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>

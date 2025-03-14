@@ -18,7 +18,7 @@ def area(request: Request):
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='rhombus_area_result')
-async def area_result(request: Request, a: str, h: str):
+async def area_result(request: Request, a: float, h: float):
     new_rec = Rhombus(a=a, h=h)
     result = new_rec.get_area()
     # Получить данные
@@ -37,7 +37,7 @@ def perimeter(request: Request):
 
 
 @router.get("/perimeter_result/", response_class=HTMLResponse, name='rhombus_perimeter_result')
-async def perimeter_result(request: Request, a: str):
+async def perimeter_result(request: Request, a: float):
     new_rec = Rhombus(a=a)
     result = new_rec.get_perimeter()
     # Получить данные

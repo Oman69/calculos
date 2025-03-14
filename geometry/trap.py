@@ -17,7 +17,7 @@ def area(request: Request):
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='trap_area_result')
-async def area_result(request: Request, a: str, b: str, h: str):
+async def area_result(request: Request, a: float, b: float, h: float):
     new_trap = Trap(a=a, b=b, h=h)
     result = new_trap.get_area()
     # Получить данные
@@ -36,9 +36,9 @@ def perimeter(request: Request):
 
 
 @router.get("/perimeter_result/", response_class=HTMLResponse, name='trap_perimeter_result')
-async def perimeter_result(request: Request, a: str):
-    new_rec = Trap(a=a)
-    result = new_rec.get_perimeter()
+async def perimeter_result(request: Request, a: float, b: float, c: float, d: float):
+    new_trap = Trap(a=a, b=b, c=c, d=d)
+    result = new_trap.get_perimeter()
     # Получить данные
     return templates.TemplateResponse(
         request=request, name="geometry/trap_perimeter.html", context={"result": result}

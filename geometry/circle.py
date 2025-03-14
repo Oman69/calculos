@@ -28,7 +28,7 @@ async def area(request: Request):
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='circle_area_result')
-async def area_result(request: Request, radius: str):
+async def area_result(request: Request, radius: float):
     similar_pages = await get_similar_page('Площадь')
     context = {"similar_pages": similar_pages}
     try:
@@ -52,7 +52,7 @@ async def len(request: Request):
 
 
 @router.get("/circle_len_result/", response_class=HTMLResponse, name='circle_len_result')
-async def len_result(request: Request, radius: str):
+async def len_result(request: Request, radius: float):
     similar_pages = await get_similar_page('Длина')
     circle = Circle(radius=radius)
     result = circle.get_length()

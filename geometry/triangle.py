@@ -93,7 +93,7 @@ def equ_triangle_area(request: Request):
 
 
 @router.get("/equ_triangle_area_result/", response_class=HTMLResponse, name='equ_triangle_area_result')
-async def equ_triangle_area_result(request: Request, a: str):
+async def equ_triangle_area_result(request: Request, a: float):
     new_tr = EquTriangle(a=a)
     result = new_tr.get_area()
     # Получить данные
@@ -112,7 +112,7 @@ def equ_triangle_height(request: Request):
 
 
 @router.get("/equ_triangle_height_result/", response_class=HTMLResponse, name='equ_triangle_height_result')
-async def equ_triangle_height_result(request: Request, a: str):
+async def equ_triangle_height_result(request: Request, a: float):
     new_tr = EquTriangle(a=a)
     result = new_tr.get_height()
     # Получить данные

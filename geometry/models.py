@@ -4,62 +4,62 @@ from typing_extensions import Annotated
 
 
 class Circle(BaseModel):
-    radius: Annotated[str, Field(description="Радиус окружности", min_length=1)]
-
+    # radius: Annotated[float, Field(description="Радиус окружности", gt=0)]
+    radius: float
 
     def get_area(self):
-        return round(math.pi * float(self.radius) ** 2, 2)
+        return round(math.pi * self.radius ** 2, 2)
 
     def get_length(self):
-        return round(math.pi * float(self.radius) * 2, 2)
+        return round(math.pi * self.radius * 2, 2)
 
 
 class Rectangle(BaseModel):
-    a: str
-    b: str
+    a: float
+    b: float
 
     def get_area(self):
-        return float(self.a) * float(self.b)
+        return self.a * self.b
 
     def get_perimeter(self):
-        return (float(self.a) + float(self.b)) * 2
+        return (self.a + self.b) * 2
 
 
 class Square(BaseModel):
-    a: str
+    a: float
 
     def get_area(self):
-        return float(self.a) ** 2
+        return self.a ** 2
 
     def get_perimeter(self):
-        return float(self.a) * 4
+        return self.a * 4
 
 
 class RightTriangle(BaseModel):
-    a: str
-    b: str
+    a: float
+    b: float
 
     def get_area(self):
-        return (float(self.a) * float(self.b)) * 0.5
+        return self.a * self.b * 0.5
 
     def get_hypotenuse(self):
-        return math.sqrt(float(self.a)**2 + float(self.b)**2)
+        return math.sqrt(self.a**2 + self.b**2)
 
 
 class IsoscelesTriangle(BaseModel):
-    a: str = None
-    c: str
-    h: str = None
+    a: float = None
+    c: float
+    h: float = None
 
     def get_area(self):
-        return (float(self.h) * float(self.c)) * 0.5
+        return self.h * self.c * 0.5
 
     def get_height(self):
-        return math.sqrt(float(self.a)**2 - (float(self.c)**2)/4)
+        return math.sqrt(self.a**2 - (self.c**2)/4)
 
 
 class EquTriangle(BaseModel):
-    a: int
+    a: float
 
     def get_area(self):
         return (self.a**2 * math.sqrt(3)) / 4
@@ -69,8 +69,8 @@ class EquTriangle(BaseModel):
 
 
 class Rhombus(BaseModel):
-    a: int
-    h: int = None
+    a: float
+    h: float = None
 
     def get_area(self):
         return self.a * self.h
@@ -80,12 +80,14 @@ class Rhombus(BaseModel):
 
 
 class Trap(BaseModel):
-    a: int
-    b: int
-    h: int = None
+    a: float
+    b: float
+    c: float = None
+    d: float = None
+    h: float = None
 
     def get_area(self):
         return (self.a + self.b) * 0.5 * self.h
 
     def get_perimeter(self):
-        return float(self.a) * 4
+        return sum([self.a, self.b, self.c, self.d])

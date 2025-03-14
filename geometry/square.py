@@ -17,7 +17,7 @@ def area(request: Request):
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='square_area_result')
-async def area_result(request: Request, a: str):
+async def area_result(request: Request, a: float):
     new_square = Square(a=a)
     result = new_square.get_area()
     # Получить данные
@@ -35,7 +35,7 @@ def len(request: Request):
 
 
 @router.get("/len_result/", response_class=HTMLResponse, name='square_len_result')
-async def len_result(request: Request, a: str):
+async def len_result(request: Request, a: float):
     new_square = Square(a=a)
     result = new_square.get_perimeter()
     # Получить данные

@@ -8,10 +8,10 @@
 <form action="{{ url_for('isosceles_triangle_area_result') }}" method="get">
             <div class="mb-3">
                 <label class="form-label" for="h">Введите высоту <b>(H)</b></label>
-                <input type="text" class="form-control" id="h" name="h">
+                <input type="number" class="form-control" id="h" name="h" step="any" required>
 
                 <label class="form-label" for="c">Введите основание <b>(C)</b></label>
-                <input type="text" class="form-control" id="c" name="c">
+                <input type="number" class="form-control" id="c" name="c" step="any" required>
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>
