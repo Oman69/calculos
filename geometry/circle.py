@@ -11,6 +11,27 @@ router = APIRouter(prefix='/circle', tags=['Circle'])
 templates = Jinja2Templates(directory="templates")
 
 
+FIGURE = 'круга'
+H2 = 'найти через радиус'
+
+
+context_area = {
+        'title': 'Найти площадь ' + FIGURE,
+        'h1': 'Площадь ' + FIGURE,
+        'h2': H2,
+        'h3': 'Площадь ' + FIGURE + ' равна',
+        'action': 'circle_area_result'
+    }
+
+context_perimeter = {
+        'title': 'Найти длину окружности',
+        'h1': 'Длина окружности',
+        'h2': H2,
+        'h3': 'Длина окружности равна',
+        'action': 'circle_len_result'
+    }
+
+
 async def get_similar_page(search_str: str):
     query = select(pages).where(pages.c.name.like(search_str + "%"))
     with engine.connect() as conn:
@@ -21,42 +42,39 @@ async def get_similar_page(search_str: str):
 @router.get("/area/", response_class=HTMLResponse, name='circle_area')
 async def area(request: Request):
     similar_pages = await get_similar_page('Площадь')
+    context_area["similar_pages"] = similar_pages
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/circle_area.html", context={"similar_pages": similar_pages}
-    )
+        request=request, name="geometry/circle.html", context=context_area)
 
 
 @router.get("/area_result/", response_class=HTMLResponse, name='circle_area_result')
 async def area_result(request: Request, radius: float):
-    similar_pages = await get_similar_page('Площадь')
-    context = {"similar_pages": similar_pages}
     try:
         circle = Circle(radius=radius)
         result = circle.get_area()
-        context["result"] = result
+        context_area["result"] = result
     except ValidationError:
-        context["error"] = 'Значение поля не должно быть пустым!!!'
+        context_area["error"] = 'Значение поля не должно быть пустым!!!'
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/circle_area.html", context=context)
+        request=request, name="geometry/circle.html", context=context_area)
 
 
 @router.get("/len/", response_class=HTMLResponse, name='circle_len')
 async def len(request: Request):
     similar_pages = await get_similar_page('Длина')
+    context_perimeter["similar_pages"] = similar_pages
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/circle_len.html", context={"similar_pages": similar_pages}
-    )
+        request=request, name="geometry/circle.html", context=context_perimeter)
 
 
 @router.get("/circle_len_result/", response_class=HTMLResponse, name='circle_len_result')
 async def len_result(request: Request, radius: float):
-    similar_pages = await get_similar_page('Длина')
     circle = Circle(radius=radius)
     result = circle.get_length()
+    context_perimeter["result"] = result
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="geometry/circle_len.html", context={"result": result, "similar_pages": similar_pages}
-    )
+        request=request, name="geometry/circle.html", context=context_perimeter)

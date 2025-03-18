@@ -1,10 +1,8 @@
 import math
 from pydantic import BaseModel, Field, ValidationError
-from typing_extensions import Annotated
 
 
 class Circle(BaseModel):
-    # radius: Annotated[float, Field(description="Радиус окружности", gt=0)]
     radius: float
 
     def get_area(self):
@@ -24,6 +22,9 @@ class Rectangle(BaseModel):
     def get_perimeter(self):
         return (self.a + self.b) * 2
 
+    def get_diag(self):
+        return math.sqrt(self.a**2 + self.b**2)
+
 
 class Square(BaseModel):
     a: float
@@ -33,6 +34,9 @@ class Square(BaseModel):
 
     def get_perimeter(self):
         return self.a * 4
+
+    def get_diag(self):
+        return self.a * math.sqrt(2)
 
 
 class RightTriangle(BaseModel):

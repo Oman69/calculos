@@ -1,18 +1,27 @@
 {% extends "base.html" %}
+{% block title %}{{ title }} | Онлайн калькулятор{% endblock %}
 {% block body %}
-<h1>{% block h1 %}Заголовок H1{% endblock %}</h1>
-<h5>{% block h2 %}Заголовок H2{% endblock %}</h5>
+<h1>{{ h1 }}</h1>
+<h5>{{ h2 }}</h5>
 
 <div class="main_form">
     <div class="border-form">
 
-{% block main_form %}
-< -- Главная форма -- >
-{% endblock %}
+<form action="{{ url_for(action) }}" method="get">
+            <div class="mb-3">
+
+            {% block main_form %}
+                <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
+                <input type="number" class="form-control" id="a" name="a" step="any" required>
+            {% endblock %}
+
+            </div>
+            <button type="submit" class="btn btn-primary">Рассчитать</button>
+        </form>
 
         <div class="result_field">
         {% if result %}
-            <h3>{% block h3 %}Заголовок H3{% endblock %}: <span> {{ result }} </span></h3>
+            <h3>{{ h3 }}: <span> {{ result }} </span></h3>
         {% endif %}
         {% if error %}
             <h3> <span> {{ error }} </span></h3>

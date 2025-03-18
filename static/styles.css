@@ -17,11 +17,31 @@ a {
 }
 
 .search-panel {
-    height: 40px;
+    max-height: 38px;
     border-bottom: 1px  dashed #aeaeae;
     margin: 30px 15px;
     color: #555454;
     text-align: right;
+}
+
+.search-form {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+#search-field {
+    border: none;
+}
+
+#search-field:focus {
+    border: none;
+}
+
+#search-btn {
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    background-color: inherit;
 }
 
 

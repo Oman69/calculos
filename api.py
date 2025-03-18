@@ -43,5 +43,26 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
     )
 
 
+def search_by_query(query: str):
+    query = select(pages).where(pages.c.name.icontains(query))
+    filter_pages = []
+    with engine.connect() as conn:
+        for row in conn.execute(query):
+            filter_pages.append(row.t)
+    return filter_pages
+
+
+@app.get("/search/", response_class=HTMLResponse, name='search_page')
+def search_page(request: Request, query: str):
+
+    filter_pages = search_by_query(query)
+
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="search.html",
+        context={"links": filter_pages}
+    )
+
+
 if __name__ == "__main__":
     uvicorn.run("api:app", host="127.0.0.1", port=8000, reload=True)
