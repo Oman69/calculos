@@ -9,12 +9,7 @@
 
 <form action="{{ url_for(action) }}" method="get">
             <div class="mb-3">
-
-            {% block main_form %}
-                <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
-                <input type="number" class="form-control" id="a" name="a" step="any" required>
-            {% endblock %}
-
+                {{ main_form | safe }}
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>
