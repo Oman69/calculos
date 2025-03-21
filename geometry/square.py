@@ -1,86 +1,98 @@
 from starlette.responses import HTMLResponse
+
+from geometry import main_forms
 from geometry.models import Square
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
 
-router = APIRouter(prefix='/square', tags=['Square'])
-templates = Jinja2Templates(directory="templates")
-
-FIGURE = 'квадрата'
-H2 = 'найти через сторону'
-
-context_diag = {
-        'title': 'Найти диагональ ' + FIGURE,
-        'h1': 'Диагональ ' + FIGURE,
-        'h2': H2,
-        'h3': 'Диагональ ' + FIGURE + ' равна',
-        'action': 'square_diag_result'
-    }
-
-context_area = {
-        'title': 'Найти площадь ' + FIGURE,
-        'h1': 'Площадь ' + FIGURE,
-        'h2': H2,
-        'h3': 'Площадь ' + FIGURE + ' равна',
-        'action': 'square_area_result'
-    }
-
-context_perimeter = {
-        'title': 'Найти периметр ' + FIGURE,
-        'h1': 'Периметр ' + FIGURE,
-        'h2': H2,
-        'h3': 'Периметр ' + FIGURE + ' равен',
-        'action': 'square_len_result'
-    }
+from utils import get_similar_page
 
 
-@router.get("/area/", response_class=HTMLResponse, name='square_area')
-def area(request: Request):
+class SquareApi:
 
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_area)
+    def __init__(self):
+        self.router = APIRouter(prefix='/square', tags=['Square'])
+        self.templates = Jinja2Templates(directory="templates")
+        self.figure: str = 'квадрата'
+        self.context: dict = {}
 
+        @self.router.get("/area/", response_class=HTMLResponse, name='square_area')
+        async def area(request: Request):
+            similar_pages = await get_similar_page('Площадь')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти площадь ' + self.figure,
+                    'h1': 'Площадь ' + self.figure,
+                    'h2': 'найти через сторону',
+                    'h3': 'Площадь ' + self.figure + ' равна',
+                    'action': 'square_area_result',
+                    'similar_pages': similar_pages,
+                    'main_form': main_forms.square})
 
-@router.get("/area_result/", response_class=HTMLResponse, name='square_area_result')
-async def area_result(request: Request, a: float):
-    new_square = Square(a=a)
-    result = new_square.get_area()
-    context_area['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_area)
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
+        @self.router.get("/area_result/", response_class=HTMLResponse, name='square_area_result')
+        async def area_result(request: Request, a: float):
+            new_square = Square(a=a)
+            result = new_square.get_area()
+            self.context['result'] = result
 
-@router.get("/len/", response_class=HTMLResponse, name='square_len')
-def len(request: Request):
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_perimeter)
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
+        @self.router.get("/len/", response_class=HTMLResponse, name='square_len')
+        async def len(request: Request):
+            similar_pages = await get_similar_page('Периметр')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти периметр ' + self.figure,
+                 'h1': 'Периметр ' + self.figure,
+                 'h2': 'найти через сторону',
+                 'h3': 'Периметр ' + self.figure + ' равен',
+                 'action': 'square_len_result',
+                 'similar_pages': similar_pages,
+                 'main_form': main_forms.square
+                 })
 
-@router.get("/len_result/", response_class=HTMLResponse, name='square_len_result')
-async def len_result(request: Request, a: float):
-    new_square = Square(a=a)
-    result = new_square.get_perimeter()
-    context_perimeter['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_perimeter)
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
+        @self.router.get("/len_result/", response_class=HTMLResponse, name='square_len_result')
+        async def len_result(request: Request, a: float):
+            new_square = Square(a=a)
+            result = new_square.get_perimeter()
+            self.context['result'] = result
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
-@router.get("/diag/", response_class=HTMLResponse, name='square_diag')
-def diag(request: Request):
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_diag)
+        @self.router.get("/diag/", response_class=HTMLResponse, name='square_diag')
+        async def diag(request: Request):
+            similar_pages = await get_similar_page('Диагональ')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти периметр ' + self.figure,
+                 'h1': 'Диагональ ' + self.figure,
+                 'h2': 'найти через сторону',
+                 'h3': 'Диагональ ' + self.figure + ' равен',
+                 'action': 'square_diag_result',
+                 'similar_pages': similar_pages,
+                 'main_form': main_forms.square
+                 })
 
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
-@router.get("/diag_result/", response_class=HTMLResponse, name='square_diag_result')
-async def diag_result(request: Request, a: float):
-    new_square = Square(a=a)
-    result = new_square.get_diag()
-    context_diag['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/square.html", context=context_diag)
+        @self.router.get("/diag_result/", response_class=HTMLResponse, name='square_diag_result')
+        async def diag_result(request: Request, a: float):
+            new_square = Square(a=a)
+            result = new_square.get_diag()
+            self.context['result'] = result
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)

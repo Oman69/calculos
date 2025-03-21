@@ -62,3 +62,29 @@ trap_perimeter = """
 
                 <label class="form-label" for="d">Введите сторону <b>(D)</b></label>
                 <input type="number" class="form-control" id="d" name="d" step="any" required>"""
+
+
+right_triangle = """
+                <label class="form-label" for="a">Введите катет <b>(A)</b></label>
+                <input type="number" class="form-control" id="a" name="a" step="any" required>
+
+                <label class="form-label" for="a">Введите катет <b>(B)</b></label>
+                <input type="number" class="form-control" id="b" name="b" step="any" required>"""
+
+equ_triangle = """
+                <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
+                <input type="number" class="form-control" id="a" name="a" step="any" required>"""
+
+iso_triangle_area = """
+                <label class="form-label" for="h">Введите высоту <b>(H)</b></label>
+                <input type="number" class="form-control" id="h" name="h" step="any" required>
+
+                <label class="form-label" for="c">Введите основание <b>(C)</b></label>
+                <input type="number" class="form-control" id="c" name="c" step="any" required>"""
+
+iso_triangle_height = """
+                <label class="form-label" for="a">Введите сторону <b>(A)</b></label>
+                <input type="number" class="form-control" id="a" name="a" step="any" required>
+
+                <label class="form-label" for="c">Введите основание <b>(C)</b></label>
+                <input type="number" class="form-control" id="c" name="c" step="any" required>"""

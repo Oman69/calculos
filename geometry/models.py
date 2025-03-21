@@ -50,7 +50,7 @@ class RightTriangle(BaseModel):
         return math.sqrt(self.a**2 + self.b**2)
 
 
-class IsoscelesTriangle(BaseModel):
+class IsoTriangle(BaseModel):
     a: float = None
     c: float
     h: float = None

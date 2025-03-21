@@ -1,87 +1,96 @@
-from starlette.responses import HTMLResponse
+from geometry import main_forms
+from utils import get_similar_page
 from geometry.models import Rectangle
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-
-router = APIRouter(prefix='/rectangle', tags=['Rectangle'])
-templates = Jinja2Templates(directory="templates")
+from starlette.responses import HTMLResponse
 
 
-FIGURE = 'прямоугольника'
-H2 = 'найти через стороны'
+class RectangleApi:
 
-context_diag = {
-        'title': 'Найти диагональ ' + FIGURE,
-        'h1': 'Диагональ ' + FIGURE,
-        'h2': H2,
-        'h3': 'Диагональ ' + FIGURE + ' равна',
-        'action': 'rectangle_diag_result'
-    }
+    def __init__(self):
+        self.router = APIRouter(prefix='/rectangle', tags=['Rectangle'])
+        self.templates = Jinja2Templates(directory="templates")
+        self.figure: str = 'прямоугольника'
+        self.context: dict = {}
 
-context_area = {
-        'title': 'Найти площадь ' + FIGURE,
-        'h1': 'Площадь ' + FIGURE,
-        'h2': H2,
-        'h3': 'Площадь ' + FIGURE + ' равна',
-        'action': 'rectangle_area_result'
-    }
+        @self.router.get("/area/", response_class=HTMLResponse, name='rectangle_area')
+        async def area(request: Request):
+            similar_pages = await get_similar_page('Площадь')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти площадь ' + self.figure,
+                    'h1': 'Площадь ' + self.figure,
+                    'h2': 'найти через стороны',
+                    'h3': 'Площадь ' + self.figure + ' равна',
+                    'action': 'rectangle_area_result',
+                    'similar_pages': similar_pages,
+                    'main_form': main_forms.rectangle})
 
-context_perimeter = {
-        'title': 'Найти периметр ' + FIGURE,
-        'h1': 'Периметр ' + FIGURE,
-        'h2': H2,
-        'h3': 'Периметр ' + FIGURE + ' равен',
-        'action': 'rectangle_len_result'
-    }
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
+        @self.router.get("/area_result/", response_class=HTMLResponse, name='rectangle_area_result')
+        async def area_result(request: Request, a: float, b: float):
+            new_rec = Rectangle(a=a, b=b)
+            result = new_rec.get_area()
+            self.context['result'] = result
 
-@router.get("/area/", response_class=HTMLResponse, name='rectangle_area')
-def area(request: Request):
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_area)
+        @self.router.get("/len/", response_class=HTMLResponse, name='rectangle_len')
+        async def len(request: Request):
+            similar_pages = await get_similar_page('Периметр')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти периметр ' + self.figure,
+                 'h1': 'Периметр ' + self.figure,
+                 'h2': 'найти через стороны',
+                 'h3': 'Периметр ' + self.figure + ' равен',
+                 'action': 'rectangle_len_result',
+                 'similar_pages': similar_pages,
+                 'main_form': main_forms.rectangle
+                 })
 
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
-@router.get("/area_result/", response_class=HTMLResponse, name='rectangle_area_result')
-async def area_result(request: Request, a: float, b: float):
-    new_rec = Rectangle(a=a, b=b)
-    result = new_rec.get_area()
-    context_area['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_area)
+        @self.router.get("/len_result/", response_class=HTMLResponse, name='rectangle_len_result')
+        async def len_result(request: Request, a: float, b: float):
+            new_rec = Rectangle(a=a, b=b)
+            result = new_rec.get_perimeter()
+            self.context['result'] = result
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
+        @self.router.get("/diag/", response_class=HTMLResponse, name='rectangle_diag')
+        async def diag(request: Request):
+            similar_pages = await get_similar_page('Диагональ')
+            self.context.pop('result', None)
+            self.context.update(
+                {'title': 'Найти диагональ ' + self.figure,
+                 'h1': 'Диагональ ' + self.figure,
+                 'h2': 'найти через стороны',
+                 'h3': 'Диагональ ' + self.figure + ' равна',
+                 'action': 'rectangle_diag_result',
+                 'similar_pages': similar_pages,
+                 'main_form': main_forms.rectangle
+                 })
 
-@router.get("/len/", response_class=HTMLResponse, name='rectangle_len')
-def len(request: Request):
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_perimeter)
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)
 
-
-@router.get("/len_result/", response_class=HTMLResponse, name='rectangle_len_result')
-async def len_result(request: Request, a: float, b: float):
-    new_rec = Rectangle(a=a, b=b)
-    result = new_rec.get_perimeter()
-    context_perimeter['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_perimeter)
-
-
-@router.get("/diag/", response_class=HTMLResponse, name='rectangle_diag')
-def diag(request: Request):
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_diag)
-
-
-@router.get("/diag_result/", response_class=HTMLResponse, name='rectangle_diag_result')
-async def diag_result(request: Request, a: float, b: float):
-    new_square = Rectangle(a=a, b=b)
-    result = new_square.get_diag()
-    context_diag['result'] = result
-    # Получить данные
-    return templates.TemplateResponse(
-        request=request, name="geometry/rectangle.html", context=context_diag)
+        @self.router.get("/diag_result/", response_class=HTMLResponse, name='rectangle_diag_result')
+        async def diag_result(request: Request, a: float, b: float):
+            new_square = Rectangle(a=a, b=b)
+            result = new_square.get_diag()
+            self.context['result'] = result
+            # Получить данные
+            return self.templates.TemplateResponse(
+                request=request, name="geometry/base.html", context=self.context)

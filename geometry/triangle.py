@@ -2,7 +2,7 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
 
-from geometry.models import RightTriangle, IsoscelesTriangle, EquTriangle
+from geometry.models import RightTriangle, IsoTriangle, EquTriangle
 
 router = APIRouter(prefix='/triangle', tags=['Triangle'])
 templates = Jinja2Templates(directory="templates")
