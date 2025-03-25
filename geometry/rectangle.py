@@ -1,4 +1,4 @@
-from geometry import main_forms
+from geometry import main_forms, texts
 from utils import get_similar_page
 from geometry.models import Rectangle
 from fastapi import APIRouter, Request
@@ -25,7 +25,8 @@ class RectangleApi:
                     'h3': 'Площадь ' + self.figure + ' равна',
                     'action': 'rectangle_area_result',
                     'similar_pages': similar_pages,
-                    'main_form': main_forms.rectangle})
+                    'main_form': main_forms.rectangle,
+                    'main_text': texts.rectangle_area})
 
             # Получить данные
             return self.templates.TemplateResponse(
@@ -52,7 +53,8 @@ class RectangleApi:
                  'h3': 'Периметр ' + self.figure + ' равен',
                  'action': 'rectangle_len_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.rectangle
+                 'main_form': main_forms.rectangle,
+                 'main_text': texts.rectangle_perimeter
                  })
 
             # Получить данные

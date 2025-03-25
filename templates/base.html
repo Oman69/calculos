@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-    <title>{% block title %}Title{% endblock %}</title>
+    <title>{{ title }}Онлайн калькуляторы</title>
 </head>
 <body>
 <div class="container">
@@ -32,9 +32,8 @@
             <div class="base_navbar_list">
                 <a href="{{ url_for('home_page').include_query_params(category=1) }}" onclick="selectItem(this)">Геометрия</a>
                 <a href="{{ url_for('home_page').include_query_params(category=2) }}" onclick="selectItem(this)">Финансы</a>
-                <a href="{{ url_for('home_page').include_query_params(category=3) }}" onclick="selectItem(this)">Строительство</a>
-                <a href="{{ url_for('home_page').include_query_params(category=4) }}" onclick="selectItem(this)">Конвертер величин</a>
-                <a href="{{ url_for('home_page').include_query_params(category=5) }}" onclick="selectItem(this)">Генераторы</a>
+                <a href="{{ url_for('home_page').include_query_params(category=3) }}" onclick="selectItem(this)">Конвертер величин</a>
+                <a href="{{ url_for('home_page').include_query_params(category=4) }}" onclick="selectItem(this)">Генераторы</a>
             </div>
         </div>
         <div class="main_advert">

@@ -1,5 +1,5 @@
 from starlette.responses import HTMLResponse
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import Circle
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
@@ -25,7 +25,8 @@ class CircleApi:
                  'h3': 'Площадь ' + self.figure + ' равна',
                  'action': 'circle_area_result',
                  'main_form': main_forms.circle,
-                 "similar_pages": similar_pages},
+                 "similar_pages": similar_pages,
+                 "main_text": texts.circle_area},
                 )
             # Получить данные
             return self.templates.TemplateResponse(
@@ -51,7 +52,8 @@ class CircleApi:
                  'h3': 'Длина ' + self.figure + ' равен',
                  'action': 'circle_len_result',
                  'main_form': main_forms.circle,
-                 'similar_pages': similar_pages
+                 'similar_pages': similar_pages,
+                 "main_text": texts.circle_len
                  })
             # Получить данные
             return self.templates.TemplateResponse(
