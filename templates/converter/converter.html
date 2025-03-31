@@ -9,7 +9,9 @@
 
 <form action="{{ url_for(action) }}" method="get">
             <div class="mb-3">
-                {{ main_form | safe }}
+                <label class="form-label" for="value">Введите значение <b>({{ item_name }})</b></label>
+              <input type="number" class="form-control" id="value" name="value" step="any" required>
+              <input type="hidden" name="item_change" value={{item_change}}>
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>
