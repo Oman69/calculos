@@ -6,7 +6,7 @@ class WeightModel(BaseModel):
     item_change: str
 
     def convert(self):
-        pass
+        return 'Error'
 
 
 class Gram(WeightModel):
@@ -18,46 +18,84 @@ class Gram(WeightModel):
             'mkg': self.value * 1_000_000,
             'c': self.value / 100_000,
             't': self.value / 1_000_000,
+            'k': self.value * 5
         }
 
         return operations[self.item_change]
 
 
-class Kilogram(BaseModel):
-    value: float
+class Kilogram(WeightModel):
 
-    def to_g(self):
-        return self.value * 1000
+    def convert(self):
+        operations = {
+            'g': self.value * 1000,
+            'mg': self.value * 1_000_000,
+            'mkg': self.value * 1_000_000_000,
+            'c': self.value / 100,
+            't': self.value / 1_000,
+            'k': self.value * 5000
+        }
 
-    def to_mg(self):
-        return self.value * 1_000_000
-
-    def to_mkg(self):
-        return self.value * 1_000_000_000
-
-    def to_c(self):
-        return self.value / 100
-
-    def to_t(self):
-        return self.value / 1_000
+        return operations[self.item_change]
 
 
-class Centner(BaseModel):
-    value: float
+class Milligram(WeightModel):
 
-    def to_g(self):
-        return self.value * 100_000
+    def convert(self):
+        operations = {
+            'g': self.value / 1000,
+            'kg': self.value / 1_000_000,
+            'mkg': self.value * 1_000,
+            'c': self.value / 100_000_000,
+            't': self.value / 1_000_000_000,
+            'k': self.value / 200
+        }
 
-    def to_mg(self):
-        return self.value * 100_000_000
+        return operations[self.item_change]
 
-    def to_mkg(self):
-        return self.value * 100_000_000_000
 
-    def to_kg(self):
-        return self.value * 100
+class Microgram(WeightModel):
 
-    def to_t(self):
-        return self.value / 10
+    def convert(self):
+        operations = {
+            'g': self.value / 1_000_000,
+            'kg': self.value / 1_000_000_000,
+            'mg': self.value / 1_000,
+            'c': self.value / 100_000_000_000,
+            't': self.value / 1_000_000_000_000,
+            'k': self.value / 200_000
+        }
+
+        return operations[self.item_change]
+
+
+class Centner(WeightModel):
+
+    def convert(self):
+        operations = {
+            'g': self.value * 100_000,
+            'mg': self.value * 100_000_000,
+            'mkg': self.value * 100_000_000_000,
+            'kg': self.value * 100,
+            't': self.value / 10,
+            'k': self.value * 500_000
+        }
+
+        return operations[self.item_change]
+
+
+class Ton(WeightModel):
+
+    def convert(self):
+        operations = {
+            'g': self.value * 1000_000,
+            'mg': self.value * 1000_000_000,
+            'mkg': self.value * 1000_000_000_000,
+            'kg': self.value * 1000,
+            'с': self.value * 10,
+            'k': self.value * 5_000_000
+        }
+
+        return operations[self.item_change]
 
 

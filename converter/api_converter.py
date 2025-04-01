@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from converter.currency import CurrencyApi
 from converter.distance import DistanceApi
 from converter.area import AreaApi
-from converter.weight.weight import WeightApi, weight_api
+from converter.weight.weight import weight_api
 
 router = APIRouter(prefix='/converter', tags=['Converter'])
 

@@ -1,20 +1,20 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from converter.weight.models import Gram
+from converter.weight.models import Kilogram
 
 
-class GramApi:
+class KilogramApi:
 
     def __init__(self):
-        self.router = APIRouter(prefix='/gram', tags=['Gram'])
+        self.router = APIRouter(prefix='/kilogram', tags=['Kilogram'])
         self.templates = Jinja2Templates(directory="templates")
         self.context: dict = {}
-        self.name = 'Граммы'
+        self.name = 'Килограммы'
 
-        @self.router.get("/result/", response_class=HTMLResponse, name='gram-result')
+        @self.router.get("/result/", response_class=HTMLResponse, name='kilo-result')
         async def result(request: Request, value: float, item_change: str):
-            item = Gram(value=value, item_change=item_change)
+            item = Kilogram(value=value, item_change=item_change)
             result = item.convert()
             self.context["result"] = result
             self.context["value"] = value
@@ -22,17 +22,17 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/kg/", response_class=HTMLResponse, name='g_kg')
-        async def kg(request: Request):
+        @self.router.get("/g/", response_class=HTMLResponse, name='kg_g')
+        async def g(request: Request):
 
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Сколько килограмм в грамме | ',
-                 'h1': self.name + ' в килограммы',
+                {'title': 'Сколько грамм в килограмме | ',
+                 'h1': self.name + ' в граммы',
                  'h2': 'перевести',
-                 'h3': 'Итого килограмм',
-                 'action': 'gram-result',
-                 'item_change': 'kg',
+                 'h3': 'Итого грамм',
+                 'action': 'kilo-result',
+                 'item_change': 'g',
                  'item_name': self.name,
                  "main_text": ''},
             )
@@ -40,16 +40,16 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/mg/", response_class=HTMLResponse, name='g_mg')
+        @self.router.get("/mg/", response_class=HTMLResponse, name='kg_mg')
         async def mg(request: Request):
 
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Сколько милиграмм в грамме | ',
+                {'title': 'Сколько милиграмм в килограмме | ',
                  'h1': self.name + ' в милиграммы',
                  'h2': 'перевести',
                  'h3': 'Итого милиграмм',
-                 'action': 'gram-result',
+                 'action': 'kilo-result',
                  'item_change': 'mg',
                  'item_name': self.name,
                  "main_text": ''},
@@ -58,16 +58,16 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/mkg/", response_class=HTMLResponse, name='g_mkg')
+        @self.router.get("/mkg/", response_class=HTMLResponse, name='kg_mkg')
         async def mkg(request: Request):
 
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Сколько микрограмм в грамме | ',
+                {'title': 'Сколько микрограмм в килограмме | ',
                  'h1': self.name + ' в микрограммы',
                  'h2': 'перевести',
                  'h3': 'Итого микрограмм',
-                 'action': 'gram-result',
+                 'action': 'kilo-result',
                  'item_change': 'mkg',
                  'item_name': self.name,
                  "main_text": ''},
@@ -76,15 +76,15 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/c/", response_class=HTMLResponse, name='g_c')
+        @self.router.get("/c/", response_class=HTMLResponse, name='kg_c')
         async def c(request: Request):
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Сколько центнеров в грамме | ',
-                 'h1': 'Граммы в центнеры',
+                {'title': 'Сколько центнеров в килограмме | ',
+                 'h1': self.name + ' в центнеры',
                  'h2': 'перевести',
                  'h3': 'Итого центнеров',
-                 'action': 'gram-result',
+                 'action': 'kilo-result',
                  'item_change': 'c',
                  'item_name': self.name,
                  "main_text": ''},
@@ -93,15 +93,15 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/t/", response_class=HTMLResponse, name='g_t')
+        @self.router.get("/t/", response_class=HTMLResponse, name='kg_t')
         async def t(request: Request):
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Сколько тонн в грамме | ',
-                 'h1': 'Граммы в тонны',
+                {'title': 'Сколько тонн в килограмме | ',
+                 'h1': self.name + ' в тонны',
                  'h2': 'перевести',
                  'h3': 'Итого тонн',
-                 'action': 'gram-result',
+                 'action': 'kilo-result',
                  'item_change': 't',
                  'item_name': self.name,
                  "main_text": ''},
@@ -110,15 +110,15 @@ class GramApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/k/", response_class=HTMLResponse, name='g_k')
+        @self.router.get("/k/", response_class=HTMLResponse, name='kg_k')
         async def k(request: Request):
             self.context.pop('result', None)
             self.context.update(
                 {'title': 'Сколько карат в грамме | ',
-                 'h1': 'Граммы в караты',
+                 'h1': self.name + ' в караты',
                  'h2': 'перевести',
                  'h3': 'Итого карат',
-                 'action': 'gram-result',
+                 'action': 'kilo-result',
                  'item_change': 'k',
                  'item_name': self.name,
                  "main_text": ''},
