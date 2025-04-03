@@ -7,6 +7,7 @@ from converter.weight.gram import GramApi
 from converter.weight.kilogram import KilogramApi
 from converter.weight.microgram import MicrogramApi
 from converter.weight.miligram import MilligramApi
+from converter.weight.ton import TonApi
 
 
 class WeightApi:
@@ -34,3 +35,4 @@ weight_api.router.include_router(KilogramApi().router)
 weight_api.router.include_router(MilligramApi().router)
 weight_api.router.include_router(MicrogramApi().router)
 weight_api.router.include_router(CentnerApi().router)
+weight_api.router.include_router(TonApi().router)

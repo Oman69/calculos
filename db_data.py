@@ -72,9 +72,23 @@ def insert_to_db(table, params):
 # insert_to_db(pages, {'name': "Микрограммы в Караты", 'slug': "mkg_k", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
 
 
-insert_to_db(pages, {'name': "Центнеры в Граммы", 'slug': "c_g", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
-insert_to_db(pages, {'name': "Центнеры в Килограммы", 'slug': "c_kg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
-insert_to_db(pages, {'name': "Центнеры в Милиграммы", 'slug': "c_mg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
-insert_to_db(pages, {'name': "Центнеры в Микрограммы", 'slug': "c_mkg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
-insert_to_db(pages, {'name': "Центнеры в Тонны", 'slug': "c_t", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
-insert_to_db(pages, {'name': "Центнеры в Караты", 'slug': "c_k", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Граммы", 'slug': "c_g", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Килограммы", 'slug': "c_kg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Милиграммы", 'slug': "c_mg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Микрограммы", 'slug': "c_mkg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Тонны", 'slug': "c_t", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Центнеры в Караты", 'slug': "c_k", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+
+
+# insert_to_db(pages, {'name': "Тонны в Граммы", 'slug': "t_g", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Тонны в Килограммы", 'slug': "t_kg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Тонны в Милиграммы", 'slug': "t_mg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Тонны в Микрограммы", 'slug': "t_mkg", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Тонны в Центнеры", 'slug': "t_c", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+# insert_to_db(pages, {'name': "Тонны в Караты", 'slug': "t_k", 'category': 31, 'image': IMAGE_FOLDER + 'weight_i.png'})
+
+# insert_to_db(pages, {'name': "Миллиметры в Сантиметры", 'slug': "mm_cm", 'category': 32, 'image': IMAGE_FOLDER + 'distance_i.png'})
+# insert_to_db(pages, {'name': "Миллиметры в Дециметры", 'slug': "mm_dm", 'category': 32, 'image': IMAGE_FOLDER + 'distance_i.png'})
+insert_to_db(pages, {'name': "Миллиметры в Метры", 'slug': "mm_m", 'category': 32, 'image': IMAGE_FOLDER + 'distance_i.png'})
+insert_to_db(pages, {'name': "Миллиметры в Килоиметры", 'slug': "mm_km", 'category': 32, 'image': IMAGE_FOLDER + 'distance_i.png'})
+insert_to_db(pages, {'name': "Миллиметры в Дюймы", 'slug': "mm_inch", 'category': 32, 'image': IMAGE_FOLDER + 'distance_i.png'})
