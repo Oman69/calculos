@@ -11,7 +11,8 @@ class DistanceModel(BaseModel):
                    'km': 1000000,
                    'inch': 25.4,
                    'ft': 304.8,
-                   'ya': 914.4}
+                   'ya': 914.4,
+                   'ml': 1609344}
 
     def convert(self):
         new_equal = self.table[self.item_change]
@@ -48,3 +49,7 @@ class Foot(DistanceModel):
 
 class Yard(DistanceModel):
     equal: float = 914.4
+
+
+class Mile(DistanceModel):
+    equal: float = 1609344

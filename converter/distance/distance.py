@@ -6,10 +6,10 @@ from converter.distance.inch import inch_api
 from starlette.responses import HTMLResponse
 from converter.distance.decimeter import dm_api
 from converter.distance.kilometer import km_api
+from converter.distance.mile import ml_api
 from converter.distance.millimeter import mm_api
 from converter.distance.centimeter import cm_api
 from starlette.templating import Jinja2Templates
-
 from converter.distance.yard import ya_api
 
 
@@ -41,3 +41,4 @@ distance_api.router.include_router(km_api.router)
 distance_api.router.include_router(inch_api.router)
 distance_api.router.include_router(ft_api.router)
 distance_api.router.include_router(ya_api.router)
+distance_api.router.include_router(ml_api.router)
