@@ -33,12 +33,12 @@ class MillimeterFunc:
             self.api.context.pop('result', None)
             self.api.context.update(
                 {'title': 'Сколько ' + change_name + 'ов в миллиметре | ',
-                 'h1': 'Миллиметры в ' + change_name + 'ы',
+                 'h1': self.api.name + ' в ' + change_name + 'ы',
                  'h2': 'перевести',
                  'h3': 'Эквивалент ' + change_name + 'ов',
                  'action': 'millimeter-result',
                  'item_change': link,
-                 'item_name': 'Миллиметры',
+                 'item_name': self.api.name,
                  "main_text": main_text},
             )
             # Получить данные
@@ -53,6 +53,7 @@ mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='метр', 
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='километр', link='km').router)
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='дюйм', link='inch', main_text='Главный текст').router)
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='фут', link='ft').router)
+mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='ярд', link='ya').router)
 
 
 

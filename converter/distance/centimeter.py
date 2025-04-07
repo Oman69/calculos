@@ -53,6 +53,7 @@ cm_api.router.include_router(CentimeterFunc(api=cm_api, change_name='метр', 
 cm_api.router.include_router(CentimeterFunc(api=cm_api, change_name='километр', link='km').router)
 cm_api.router.include_router(CentimeterFunc(api=cm_api, change_name='дюйм', link='inch').router)
 cm_api.router.include_router(CentimeterFunc(api=cm_api, change_name='фут', link='ft').router)
+cm_api.router.include_router(CentimeterFunc(api=cm_api, change_name='ярд', link='ya').router)
 
 
 

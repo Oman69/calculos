@@ -1,10 +1,16 @@
-from starlette.responses import HTMLResponse
-from fastapi import APIRouter, Request
-from starlette.templating import Jinja2Templates
 import utils
+from fastapi import APIRouter, Request
+from converter.distance.meter import m_api
+from converter.distance.foot import ft_api
+from converter.distance.inch import inch_api
+from starlette.responses import HTMLResponse
+from converter.distance.decimeter import dm_api
+from converter.distance.kilometer import km_api
 from converter.distance.millimeter import mm_api
 from converter.distance.centimeter import cm_api
-from converter.distance.decimeter import dm_api
+from starlette.templating import Jinja2Templates
+
+from converter.distance.yard import ya_api
 
 
 class DistanceApi:
@@ -30,3 +36,8 @@ distance_api = DistanceApi()
 distance_api.router.include_router(mm_api.router)
 distance_api.router.include_router(cm_api.router)
 distance_api.router.include_router(dm_api.router)
+distance_api.router.include_router(m_api.router)
+distance_api.router.include_router(km_api.router)
+distance_api.router.include_router(inch_api.router)
+distance_api.router.include_router(ft_api.router)
+distance_api.router.include_router(ya_api.router)
