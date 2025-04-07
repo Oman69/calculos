@@ -52,6 +52,7 @@ mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='децим�
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='метр', link='m').router)
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='километр', link='km').router)
 mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='дюйм', link='inch', main_text='Главный текст').router)
+mm_api.router.include_router(MillimeterFunc(api=mm_api, change_name='фут', link='ft').router)
 
 
 

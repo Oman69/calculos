@@ -3,6 +3,8 @@ from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
 import utils
 from converter.distance.millimeter import mm_api
+from converter.distance.centimeter import cm_api
+from converter.distance.decimeter import dm_api
 
 
 class DistanceApi:
@@ -26,3 +28,5 @@ class DistanceApi:
 
 distance_api = DistanceApi()
 distance_api.router.include_router(mm_api.router)
+distance_api.router.include_router(cm_api.router)
+distance_api.router.include_router(dm_api.router)
