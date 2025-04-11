@@ -177,11 +177,14 @@ def insert_to_db(table, params):
 # insert_to_db(pages, {'name': "Метры² в акры", 'slug': "m2_akr2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
 
 
-insert_to_db(pages, {'name': "Дециметры² в метры²", 'slug': "dm2_m2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в сантиметры²", 'slug': "dm2_cm2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в километры²", 'slug': "dm2_km2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в дюймы²", 'slug': "dm2_inch2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в футы²", 'slug': "dm2_ft2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в гектары", 'slug': "dm2_ga2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Дециметры² в акры", 'slug': "dm2_akr2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в метры²", 'slug': "dm2_m2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в сантиметры²", 'slug': "dm2_cm2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в километры²", 'slug': "dm2_km2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в дюймы²", 'slug': "dm2_inch2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в футы²", 'slug': "dm2_ft2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в гектары", 'slug': "dm2_ga2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+# insert_to_db(pages, {'name': "Дециметры² в акры", 'slug': "dm2_akr2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
+
+insert_to_db(pages, {'name': "Генератор паролей", 'slug': "password", 'category': 4, 'image': IMAGE_FOLDER + 'pass_i.png'})
+
 

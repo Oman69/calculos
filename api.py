@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from geometry.api_geometry import router as math_router
 from converter.api_converter import router as converter_router
+from generators.api_generators import router as generator_router
 import utils
 
 app = FastAPI()
@@ -13,6 +14,7 @@ templates = Jinja2Templates(directory="templates")
 
 app.include_router(math_router)
 app.include_router(converter_router)
+app.include_router(generator_router)
 
 
 @app.get("/", response_class=HTMLResponse, name='home_page')
