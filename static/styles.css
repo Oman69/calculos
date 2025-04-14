@@ -161,6 +161,23 @@ a.selected {
     margin-bottom: 0.5em;
 }
 
+.quotes {
+    margin: 30px;
+    background-color: #f2f2f2;
+}
+
+.quotes-field {
+    padding: 30px;
+}
+
+.new-pass {
+    font-size: 1.8em;
+}
+
+.new-pass:hover {
+    text-decoration: underline;
+}
+
 .footer {
     border-radius: 15px 15px 0 0;
     background-color: #555454;

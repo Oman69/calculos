@@ -13,15 +13,12 @@ function selectItem(selectedItem) {
             selectedItem.classList.add('selected');
         }
 
-
-function UpdateContent(cat_value) {
-            let url = window.location.href + '?category=' + cat_value
-            fetch(url) // Адрес для получения данных
-                .then(response => response.json())
-                .then(data => {
-                    // Обновляем содержимое div с новыми данными
-                    console.log(data)
-
-                })
-                .catch(error => console.error('Ошибка при получении данных:', error));
-        }
+function copyDivToClipboard(elem) {
+  // Получаем текст для копирования
+  const text = elem.textContent;
+  // Копируем текст в буфер обмена
+  navigator.clipboard.writeText(text).then(function() {
+    alert("Пароль скопирован в буфер обмена!");
+  }).catch(function(error) {
+    alert("Ошибка копирования: " + error);
+  })}

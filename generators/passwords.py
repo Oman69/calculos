@@ -26,18 +26,19 @@ class PasswordApi:
                 request=request, name="generators/password.html", context=self.context)
 
         @self.router.get("/result/", response_class=HTMLResponse, name='password_result')
-        async def result(request: Request,
-                              count: int = 3,
-                              length: int = 6,
-                              ascii_low: bool = True,
-                              ascii_upp: bool = True,
-                              symbols: bool = True):
+        async def result(request: Request):
+
+            ascii_low = bool(request.query_params.get('ascii_low'))
+            ascii_upp = bool(request.query_params.get('ascii_upp'))
+            symbols = bool(request.query_params.get('symbols'))
+            count = int(request.query_params.get('count'))
+            length = int(request.query_params.get('length'))
 
             new_passwords = Password(count=count,
-                              length=length,
-                              ascii_low=ascii_low,
-                              ascii_upp=ascii_upp,
-                              symbols=symbols)
+                                     length=length,
+                                     ascii_low=ascii_low,
+                                     ascii_upp=ascii_upp,
+                                     symbols=symbols)
 
             result = new_passwords.create_pass()
             self.context["result"] = result
