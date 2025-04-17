@@ -1,10 +1,8 @@
 from starlette.responses import HTMLResponse
-
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import Square
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-
 from utils import get_similar_page
 
 
@@ -21,13 +19,14 @@ class SquareApi:
             similar_pages = await get_similar_page('Площадь')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти площадь ' + self.figure,
+                {'title': 'Найти площадь ' + self.figure + ' | ',
                     'h1': 'Площадь ' + self.figure,
                     'h2': 'найти через сторону',
                     'h3': 'Площадь ' + self.figure + ' равна',
                     'action': 'square_area_result',
                     'similar_pages': similar_pages,
-                    'main_form': main_forms.square})
+                    'main_form': main_forms.square,
+                    'main_text': texts.square_area})
 
             # Получить данные
             return self.templates.TemplateResponse(
@@ -48,13 +47,14 @@ class SquareApi:
             similar_pages = await get_similar_page('Периметр')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти периметр ' + self.figure,
+                {'title': 'Найти периметр ' + self.figure + ' | ',
                  'h1': 'Периметр ' + self.figure,
                  'h2': 'найти через сторону',
                  'h3': 'Периметр ' + self.figure + ' равен',
                  'action': 'square_len_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.square
+                 'main_form': main_forms.square,
+                 'main_text': texts.square_perimeter
                  })
 
             # Получить данные
@@ -75,13 +75,15 @@ class SquareApi:
             similar_pages = await get_similar_page('Диагональ')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти периметр ' + self.figure,
+                {'title': 'Найти периметр ' + self.figure + ' | ',
                  'h1': 'Диагональ ' + self.figure,
                  'h2': 'найти через сторону',
                  'h3': 'Диагональ ' + self.figure + ' равен',
                  'action': 'square_diag_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.square
+                 'main_form': main_forms.square,
+                 'main_text': texts.square_diag
+
                  })
 
             # Получить данные

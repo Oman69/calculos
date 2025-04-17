@@ -1,7 +1,7 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import RightTriangle
 from utils import get_similar_page
 
@@ -17,7 +17,8 @@ class RightTriangleApi:
                         'h2': 'найти через катеты',
                         'h3': 'Площадь ' + self.figure + ' равна',
                         'action': 'right_triangle_area_result',
-                        'main_form': main_forms.right_triangle}
+                        'main_form': main_forms.right_triangle,
+                        'main_text': texts.right_triangle_area}
 
         @self.router.get("/area/", response_class=HTMLResponse, name='right_triangle_area')
         async def area(request: Request):
@@ -50,7 +51,8 @@ class RightTriangleApi:
                  'h2': 'найти через катеты',
                  'h3': 'Гипотенуза ' + self.figure + ' равна',
                  'action': 'right_triangle_hypotenuse_result',
-                 'main_form': main_forms.right_triangle}
+                 'main_form': main_forms.right_triangle,
+                 'main_text': texts.right_triangle_area}
             )
 
             # Получить данные

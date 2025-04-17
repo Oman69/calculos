@@ -1,7 +1,7 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import Trap
 from utils import get_similar_page
 
@@ -25,7 +25,8 @@ class TrapApi:
                     'h3': 'Площадь ' + self.figure + ' равна',
                     'action': 'trap_area_result',
                     'similar_pages': similar_pages,
-                    'main_form': main_forms.trap_area})
+                    'main_form': main_forms.trap_area,
+                    'main_text': texts.trap_area})
             # Получить данные
             return self.templates.TemplateResponse(
                 request=request, name="geometry/base.html", context=self.context)
@@ -50,7 +51,8 @@ class TrapApi:
                  'h3': 'Периметр ' + self.figure + ' равен',
                  'action': 'trap_perimeter_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.trap_perimeter})
+                 'main_form': main_forms.trap_perimeter,
+                 'main_text': texts.trap_perimeter})
             # Получить данные
             return self.templates.TemplateResponse(
                 request=request, name="geometry/base.html", context=self.context)

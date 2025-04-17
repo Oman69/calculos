@@ -7,7 +7,7 @@
 <div class="main_form">
     <div class="border-form">
 
-<form action="{{ url_for(action) }}" method="get">
+        <form action="{{ url_for(action) }}" method="get">
             <div class="mb-3">
                 {{ main_form | safe }}
             </div>
@@ -17,9 +17,6 @@
         {% if result %}
         <div class="result_field">
             <h3>{{ h3 }}: <span> {{ result }} </span></h3>
-        {% endif %}
-        {% if error %}
-            <h3> <span> {{ error }} </span></h3>
         </div>
         {% endif %}
     </div>

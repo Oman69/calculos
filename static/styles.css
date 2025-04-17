@@ -170,6 +170,10 @@ a.selected {
     padding: 30px;
 }
 
+.quotes-field > b {
+    font-size: 20px;
+}
+
 .new-pass {
     font-size: 1.8em;
 }
