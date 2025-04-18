@@ -1,7 +1,7 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import Cube
 from utils import get_similar_page
 
@@ -25,7 +25,8 @@ class CubeApi:
                     'h3': 'Площадь ' + self.figure + ' равна',
                     'action': 'cube_area_result',
                     'similar_pages': similar_pages,
-                    'main_form': main_forms.cube})
+                    'main_form': main_forms.cube,
+                    'main_text': texts.cube_area})
 
             # Получить данные
             return self.templates.TemplateResponse(
@@ -52,7 +53,8 @@ class CubeApi:
                  'h3': 'Объем ' + self.figure + ' равен',
                  'action': 'cube_volume_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.cube
+                 'main_form': main_forms.cube,
+                 'main_text': texts.cube_volume
                  })
 
             # Получить данные

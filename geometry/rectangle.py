@@ -81,7 +81,8 @@ class RectangleApi:
                  'h3': 'Диагональ ' + self.figure + ' равна',
                  'action': 'rectangle_diag_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.rectangle
+                 'main_form': main_forms.rectangle,
+                 'main_text': texts.rectangle_diag
                  })
 
             # Получить данные

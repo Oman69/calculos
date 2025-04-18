@@ -2,7 +2,7 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
 from geometry.models import Rhombus
-from geometry import main_forms
+from geometry import main_forms, texts
 from utils import get_similar_page
 
 
@@ -25,7 +25,8 @@ class RhombusApi:
                     'h3': 'Площадь ' + self.figure + ' равна',
                     'action': 'rhombus_area_result',
                     'similar_pages': similar_pages,
-                    'main_form': main_forms.rhombus_area})
+                    'main_form': main_forms.rhombus_area,
+                    'main_text': texts.rhombus_area})
 
             # Получить данные
             return self.templates.TemplateResponse(
@@ -51,7 +52,8 @@ class RhombusApi:
                  'h3': 'Периметр ' + self.figure + ' равен',
                  'action': 'rhombus_perimeter_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.rhombus_perimeter})
+                 'main_form': main_forms.rhombus_perimeter,
+                 'main_text': texts.rhombus_perimeter})
 
             # Получить данные
             return self.templates.TemplateResponse(

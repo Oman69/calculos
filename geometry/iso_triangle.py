@@ -1,7 +1,7 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import EquTriangle, IsoTriangle
 from utils import get_similar_page
 
@@ -17,7 +17,8 @@ class IsoTriangleApi:
                         'h2': 'найти через высоту и основание',
                         'h3': 'Площадь ' + self.figure + ' равна',
                         'action': 'iso_triangle_area_result',
-                        'main_form': main_forms.iso_triangle_area}
+                        'main_form': main_forms.iso_triangle_area,
+                        'main_text': texts.iso_triangle_area}
 
         @self.router.get("/area/", response_class=HTMLResponse, name='iso_triangle_area')
         async def area(request: Request):
@@ -50,7 +51,8 @@ class IsoTriangleApi:
                  'h3': 'Высота ' + self.figure + ' равна',
                  'action': 'iso_triangle_height_result',
                  'similar_pages': similar_pages,
-                 'main_form': main_forms.iso_triangle_height}
+                 'main_form': main_forms.iso_triangle_height,
+                 'main_text': texts.iso_triangle_height}
             )
 
             # Получить данные

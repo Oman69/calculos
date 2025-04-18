@@ -1,7 +1,7 @@
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request
 from starlette.templating import Jinja2Templates
-from geometry import main_forms
+from geometry import main_forms, texts
 from geometry.models import EquTriangle
 from utils import get_similar_page
 
@@ -17,7 +17,8 @@ class EquTriangleApi:
                         'h2': 'найти через сторону',
                         'h3': 'Площадь ' + self.figure + ' равна',
                         'action': 'equ_triangle_area_result',
-                        'main_form': main_forms.equ_triangle}
+                        'main_form': main_forms.equ_triangle,
+                        'main_text': texts.equ_triangle_area}
 
         @self.router.get("/area/", response_class=HTMLResponse, name='equ_triangle_area')
         async def area(request: Request):
@@ -48,7 +49,9 @@ class EquTriangleApi:
                  'h1': 'Высота ' + self.figure,
                  'h3': 'Высота ' + self.figure + ' равна',
                  'action': 'equ_triangle_height_result',
-                 'similar_pages': similar_pages}
+                 'similar_pages': similar_pages,
+                 'main_form': main_forms.equ_triangle,
+                 'main_text': texts.equ_triangle_height}
             )
 
             # Получить данные
