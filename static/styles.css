@@ -187,3 +187,22 @@ a.selected {
     background-color: #555454;
     position: relative;
 }
+
+.slice {
+    display: grid;
+    grid-template-columns: 4fr 1fr 4fr;
+    grid-column-gap: 30px;
+}
+
+.separator {
+    margin-top: 120%;
+    height: 2px;
+    background-color: #DA7748;
+}
+
+
+@media (max-width: 768px) {
+  .main_form {
+    grid-template-columns: none;
+  }
+}

@@ -185,6 +185,7 @@ def insert_to_db(table, params):
 # insert_to_db(pages, {'name': "Дециметры² в гектары", 'slug': "dm2_ga2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
 # insert_to_db(pages, {'name': "Дециметры² в акры", 'slug': "dm2_akr2", 'category': 33, 'image': IMAGE_FOLDER + 'square_i.png'})
 
-insert_to_db(pages, {'name': "Генератор паролей", 'slug': "password", 'category': 4, 'image': IMAGE_FOLDER + 'pass_i.png'})
+# insert_to_db(pages, {'name': "Генератор паролей", 'slug': "password", 'category': 4, 'image': IMAGE_FOLDER + 'pass_i.png'})
+insert_to_db(pages, {'name': "Генератор случайных чисел", 'slug': "random_number", 'category': 4, 'image': IMAGE_FOLDER + 'random_i.png'})
 
 

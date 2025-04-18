@@ -1,6 +1,5 @@
 import random
 import string
-
 from pydantic import BaseModel
 
 
@@ -27,7 +26,20 @@ class Password(BaseModel):
                 pass_str += random.choice(source)
             passwords.append(pass_str)
 
-        return passwords
 
+class RandomNumber(BaseModel):
+    count: int
+    start: int
+    stop: int
+    sorting: bool
+
+    def create_numbers(self):
+        numbers = []
+        for i in range(self.count):
+            num = random.randint(self.start, self.stop)
+            numbers.append(num)
+        if self.sorting:
+            numbers.sort()
+        return numbers
 
 
