@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="test_db [2]" uuid="0c4096a4-c9af-4958-ac65-6f3646c20a18">
+    <data-source source="LOCAL" name="test_db" uuid="5e4096a2-52ee-4158-9612-a15ba076e321">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Kazickiirs\Desktop\PycharmProjects\calculos\test_db.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\kazyk\PycharmProjects\calculos\test_db.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
