@@ -19,7 +19,7 @@ class RhombusApi:
             similar_pages = await get_similar_page('Площадь')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти площадь ' + self.figure,
+                {'title': 'Найти площадь ' + self.figure + ' | ',
                     'h1': 'Площадь ' + self.figure,
                     'h2': 'найти через сторону и высоту',
                     'h3': 'Площадь ' + self.figure + ' равна',
@@ -46,7 +46,7 @@ class RhombusApi:
             similar_pages = await get_similar_page('Периметр')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти периметр ' + self.figure,
+                {'title': 'Найти периметр ' + self.figure + ' | ',
                  'h1': 'Периметр ' + self.figure,
                  'h2': 'найти через сторону',
                  'h3': 'Периметр ' + self.figure + ' равен',

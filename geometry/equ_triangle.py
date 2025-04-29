@@ -12,7 +12,7 @@ class EquTriangleApi:
         self.router = APIRouter(prefix='/equ_triangle', tags=['EquTriangle'])
         self.templates = Jinja2Templates(directory="templates")
         self.figure = 'равностороннего треугольника'
-        self.context = {'title': 'Найти площадь ' + self.figure,
+        self.context = {'title': 'Найти площадь ' + self.figure + ' | ',
                         'h1': 'Площадь ' + self.figure,
                         'h2': 'найти через сторону',
                         'h3': 'Площадь ' + self.figure + ' равна',
@@ -45,7 +45,7 @@ class EquTriangleApi:
             self.context.pop('result', None)
 
             self.context.update(
-                {'title': 'Найти высоту ' + self.figure,
+                {'title': 'Найти высоту ' + self.figure + ' | ',
                  'h1': 'Высота ' + self.figure,
                  'h3': 'Высота ' + self.figure + ' равна',
                  'action': 'equ_triangle_height_result',

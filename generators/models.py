@@ -25,6 +25,7 @@ class Password(BaseModel):
             for l in range(self.length):
                 pass_str += random.choice(source)
             passwords.append(pass_str)
+        return passwords
 
 
 class RandomNumber(BaseModel):

@@ -12,7 +12,7 @@ class IsoTriangleApi:
         self.router = APIRouter(prefix='/iso_triangle', tags=['IsoTriangle'])
         self.templates = Jinja2Templates(directory="templates")
         self.figure = 'равнобедренного треугольника'
-        self.context = {'title': 'Найти площадь ' + self.figure,
+        self.context = {'title': 'Найти площадь ' + self.figure + ' | ',
                         'h1': 'Площадь ' + self.figure,
                         'h2': 'найти через высоту и основание',
                         'h3': 'Площадь ' + self.figure + ' равна',
@@ -45,7 +45,7 @@ class IsoTriangleApi:
             self.context.pop('result', None)
 
             self.context.update(
-                {'title': 'Найти высоту ' + self.figure,
+                {'title': 'Найти высоту ' + self.figure + ' | ',
                  'h1': 'Высота ' + self.figure,
                  'h2': 'найти через сторону и основание',
                  'h3': 'Высота ' + self.figure + ' равна',

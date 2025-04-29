@@ -12,7 +12,7 @@ class RightTriangleApi:
         self.router = APIRouter(prefix='/right_triangle', tags=['RightTriangle'])
         self.templates = Jinja2Templates(directory="templates")
         self.figure = 'прямоугольного треугольника'
-        self.context = {'title': 'Найти площадь ' + self.figure,
+        self.context = {'title': 'Найти площадь ' + self.figure + ' | ',
                         'h1': 'Площадь ' + self.figure,
                         'h2': 'найти через катеты',
                         'h3': 'Площадь ' + self.figure + ' равна',
@@ -46,7 +46,7 @@ class RightTriangleApi:
             self.context['similar_pages'] = similar_pages
 
             self.context.update(
-                {'title': 'Найти гипотенузу ' + self.figure,
+                {'title': 'Найти гипотенузу ' + self.figure + ' | ',
                  'h1': 'Гипотенуза ' + self.figure,
                  'h2': 'найти через катеты',
                  'h3': 'Гипотенуза ' + self.figure + ' равна',

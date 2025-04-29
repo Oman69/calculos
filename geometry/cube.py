@@ -19,7 +19,7 @@ class CubeApi:
             similar_pages = await get_similar_page('Площадь')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти площадь ' + self.figure,
+                {'title': 'Найти площадь ' + self.figure + ' | ',
                     'h1': 'Площадь ' + self.figure,
                     'h2': 'найти через ребро',
                     'h3': 'Площадь ' + self.figure + ' равна',
@@ -47,7 +47,7 @@ class CubeApi:
             similar_pages = await get_similar_page('Объем')
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Найти объем ' + self.figure,
+                {'title': 'Найти объем ' + self.figure + ' | ',
                  'h1': 'Объем ' + self.figure,
                  'h2': 'найти через ребро',
                  'h3': 'Объем ' + self.figure + ' равен',
