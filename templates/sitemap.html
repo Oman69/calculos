@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Страница поиска | Онлайн калькуляторы{% endblock %}
+{% block body %}
+<h1>Карта сайта</h1>
+    <div class="sitemap-columns">
+        <div class="">
+            <h5>Геометрические калькуляторы</h5>
+            {% for item in geometry_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
+            <h5>Вес и масса</h5>
+            {% for item in weight_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
+            <h5>Длина и расстояние</h5>
+            {% for item in distance_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
+            <h5>Единицы площади</h5>
+            {% for item in area_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
+            <h5>Генераторы</h5>
+            {% for item in generators_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

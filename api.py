@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from geometry.api_geometry import router as math_router
 from converter.api_converter import router as converter_router
 from generators.api_generators import router as generator_router
+from fastapi.responses import PlainTextResponse
 import utils
 
 app = FastAPI()
@@ -49,6 +50,32 @@ def search_page(request: Request, query: str):
         request=request, name="search.html",
         context={"links": filter_pages}
     )
+
+
+@app.get("/sitemap/", response_class=HTMLResponse, name='sitemap')
+def sitemap(request: Request):
+
+    geometry_pages = utils.select_main_pages_by_category(category=1)
+    generators_pages = utils.select_main_pages_by_category(category=4)
+    weight_pages = utils.select_main_pages_by_category(category=31)
+    distance_pages = utils.select_main_pages_by_category(category=32)
+    area_pages = utils.select_main_pages_by_category(category=33)
+
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="sitemap.html",
+        context={"geometry_pages": geometry_pages,
+                 'generators_pages': generators_pages,
+                 'weight_pages': weight_pages,
+                 'distance_pages': distance_pages,
+                 'area_pages': area_pages}
+    )
+
+
+@app.get('/robots.txt', response_class=PlainTextResponse)
+def robots():
+    data = """User-agent: *\nClean-param: utm\nHost: https://calculos.ru\nSitemap: https://calculos.ru/sitemap.xml"""
+    return data
 
 
 if __name__ == "__main__":
