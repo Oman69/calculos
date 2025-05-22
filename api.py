@@ -21,9 +21,9 @@ app.include_router(generator_router)
 @app.get("/", response_class=HTMLResponse, name='home_page')
 def home_page(request: Request, category: int = 1, limit: int = 6):
     headers = {1: 'Геометрические калькуляторы',
-               2: 'Финансовые калькуляторы',
                3: 'Конвертеры величин',
-               4: 'Генераторы', }
+               4: 'Генераторы',
+               5: 'Конвертеры изображений'}
 
     header_h1 = headers.get(category, 'Заголовок H1')
 
