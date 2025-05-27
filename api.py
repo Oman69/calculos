@@ -1,5 +1,8 @@
+import os
+import uuid
+
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -10,7 +13,13 @@ from fastapi.responses import PlainTextResponse
 import utils
 
 app = FastAPI()
+
+UPLOAD_DIR = "uploads"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+app.mount("/" + UPLOAD_DIR, StaticFiles(directory=UPLOAD_DIR), name=UPLOAD_DIR)
 templates = Jinja2Templates(directory="templates")
 
 app.include_router(math_router)
@@ -22,8 +31,7 @@ app.include_router(generator_router)
 def home_page(request: Request, category: int = 1, limit: int = 6):
     headers = {1: 'Геометрические калькуляторы',
                3: 'Конвертеры величин',
-               4: 'Генераторы',
-               5: 'Конвертеры изображений'}
+               4: 'Генераторы'}
 
     header_h1 = headers.get(category, 'Заголовок H1')
 
@@ -38,6 +46,22 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
         request=request, name="home.html",
         context=context
     )
+
+
+@app.post("/upload/")
+async def upload_file(file: UploadFile = File(...)):
+    # Генерируем уникальное имя файла
+    file_id = str(uuid.uuid4())
+    # Получил разрешение
+    file_ext = os.path.splitext(file.filename)[1]
+    file_path = os.path.join(UPLOAD_DIR, f"{file_id}{file_ext}")
+
+    # Сохраняем файл
+    with open(file_path, "wb") as buffer:
+        buffer.write(await file.read())
+
+    # Возвращаем ссылку
+    return {"file_url": f"/{UPLOAD_DIR}/{file_id}{file_ext}"}
 
 
 @app.get("/search/", response_class=HTMLResponse, name='search_page')

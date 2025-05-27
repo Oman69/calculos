@@ -13,23 +13,6 @@ class PdfApi:
         self.router = APIRouter(prefix='/pdf', tags=['Pdf'])
         self.templates = Jinja2Templates(directory="templates")
         self.context: dict = {}
-        self.upload_dir: str = 'uploads'
-
-        @self.router.post("/upload/")
-        async def upload_file(file: UploadFile = File(...)):
-
-            # Генерируем уникальное имя файла
-            file_id = str(uuid.uuid4())
-            # Получил разрешение
-            file_ext = os.path.splitext(file.filename)[1]
-            file_path = os.path.join(self.upload_dir, f"{file_id}{file_ext}")
-
-            # Сохраняем файл
-            with open(file_path, "wb") as buffer:
-                buffer.write(await file.read())
-
-            # Возвращаем ссылку
-            return {"file_url": f"/static/{file_id}{file_ext}"}
 
     @staticmethod
     async def pdf_to_jpeg(pdf_path, output_folder, img_fmt: str, dpi=300):
