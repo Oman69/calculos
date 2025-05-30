@@ -11,10 +11,10 @@ class ConverterApi:
 
     def __init__(self):
         self.router = APIRouter(prefix='', tags=['Converter'])
-        self.templates = Jinja2Templates(directory="templates")
+        self.templates = Jinja2Templates(directory="templates", auto_reload=True)
 
     @staticmethod
-    async def pdf_to_jpeg(filename: str, output_folder, img_fmt: str, dpi=300):
+    async def convert_files(filename: str, output_folder, img_fmt: str, dpi=300):
         """
         Конвертирует PDF в JPEG изображения (по одной странице на файл)
 
@@ -29,6 +29,7 @@ class ConverterApi:
         filepath = os.path.join('uploads', filename)
         pdf_document = fitz.open(filepath)
 
+        new_images = []
         for page_num in range(len(pdf_document)):
             page = pdf_document.load_page(page_num)
 
@@ -40,11 +41,14 @@ class ConverterApi:
 
             # Сохраняем как JPEG
             output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+            new_images.append(output_path)
             img.save(output_path, img_fmt, quality=95)
 
             print(f"Страница {page_num + 1} сохранена как {output_path}")
 
         pdf_document.close()
+
+        return new_images
 
 
 class ConverterFunc:
@@ -72,19 +76,15 @@ class ConverterFunc:
             result = {}
             data = await request.json()
             filename = os.path.basename(data)
-            try:
-                await self.api.pdf_to_jpeg(img_fmt=tf, filename=filename, output_folder='output')
-                result['message'] = "Конвертация завершена!"
-            except Exception as E:
-                result['message'] = 'Ошибка: ' + str(E)
+
+            new_images = await self.api.convert_files(img_fmt=tf, filename=filename, output_folder='output')
+
+            result['new_images'] = new_images
+            result['img_fmt'] = tf.capitalize()
 
             return json.dumps(result)
 
-            # Получить данные
-            # return self.api.templates.TemplateResponse(
-            #     request=request, name="converter/files_converter.html", context={})
 
-
-pdf_to_img_api = ConverterApi()
-pdf_to_img_api.router.include_router(ConverterFunc(api=pdf_to_img_api, ff='pdf', tf='jpeg').router)
-pdf_to_img_api.router.include_router(ConverterFunc(api=pdf_to_img_api, ff='pdf', tf='png').router)
+file_converter_api = ConverterApi()
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='jpeg').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='png').router)

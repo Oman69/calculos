@@ -2,7 +2,7 @@ import utils
 from fastapi import APIRouter, Request
 from starlette.responses import HTMLResponse
 from starlette.templating import Jinja2Templates
-from converter.files.pdf import pdf_to_img_api
+from converter.files.files_api import file_converter_api
 
 
 class FilesConverterApi:
@@ -20,9 +20,9 @@ class FilesConverterApi:
             # Получить данные
             return self.templates.TemplateResponse(
                 request=request, name="home.html", context={'links': filter_pages,
-                                                            'title': 'Конвертеры файлов | ',
+                                                            'title': 'Конвертеры файлов ',
                                                             'h1': 'Конвертеры файлов'})
 
 
 files_converter_api = FilesConverterApi()
-files_converter_api.router.include_router(pdf_to_img_api.router)
+files_converter_api.router.include_router(file_converter_api.router)

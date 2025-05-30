@@ -33,20 +33,22 @@ async function handleFiles() {
 async function convertFile(data) {
     document.getElementById("convertBtn").addEventListener("click", async () => {
 
-            let current_url = window.location.href;
+        let current_url = window.location.href;
 
-            const response = await fetch(current_url, {
-                method: 'POST',
-                body: JSON.stringify(data.file_url)
-            });
+        const response = await fetch(current_url, {
+            method: 'POST',
+            body: JSON.stringify(data.file_url)
+        })
 
-            const result = await response.json();
-             fileInfo.innerHTML = `
-            <p><strong>${result.message}</strong></p>
-            <button type="submit" id="saveBtn" class="btn btn-success">Скачать файл</button>
-            `;
+        const result = await response.json();
 
-            });
+        let domain = window.location.origin;
+        // Преобразуем массив в HTML-строку
+        const htmlString = result.new_images.map(item => `<a href="${domain + '/' + item}"><li>${item}</li></a>`).join('');
+        fileInfo.innerHTML = `
+                 <h4>Конвертация завершена!</h4>
+                 <ol>${htmlString}</ol>`;
+    });
 
 }
 
@@ -68,25 +70,7 @@ async function uploadFile(file) {
             <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать в .jpg</button>
         `;
 
-
         await convertFile(data)
-
-        // document.getElementById("convertBtn").addEventListener("click", async () => {
-        //
-        //     let current_url = window.location.href;
-        //
-        //     const response = await fetch(current_url, {
-        //         method: 'POST',
-        //         body: JSON.stringify(data.file_url)
-        //     });
-        //
-        //     const result = await response.json();
-        //      fileInfo.innerHTML = `
-        //     <p><strong>${result.message}</strong></p>
-        //     <button type="submit" id="saveBtn" class="btn btn-success">Скачать файл</button>
-        //     `;
-        //
-        //     });
 
     } catch (error) {
         fileInfo.innerHTML = `<p style="color: red">Ошибка: ${error.message}</p>`;
