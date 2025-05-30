@@ -221,15 +221,21 @@ a.selected {
 
 #drop-zone {
     border: 2px dashed #ccc;
-    padding: 20px;
+    padding: 70px;
     text-align: center;
     margin: 20px;
 }
 
 #file-info {
-    margin-top: 10px;
+    margin: 10px 0 50px 0;
 }
 
+.format-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-column-gap: 50px;
+    margin-bottom: 30px;
+}
 
 @media (max-width: 768px) {
   .main_form {

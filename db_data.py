@@ -186,6 +186,10 @@ insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files
 #
 # insert_to_db(pages, {'name': "Генератор паролей", 'slug': "password", 'category': 4, 'image': IMAGE_FOLDER + 'pass_i.png'})
 # insert_to_db(pages, {'name': "Генератор случайных чисел", 'slug': "random_number", 'category': 4, 'image': IMAGE_FOLDER + 'random_i.png'})
+
+
+# insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files_converter", 'category': 3, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(pages, {'name': "Pdf в Jpeg", 'slug': "pdf_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Pdf в Png", 'slug': "pdf_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 
 

@@ -61,7 +61,8 @@ async def upload_file(file: UploadFile = File(...)):
         buffer.write(await file.read())
 
     # Возвращаем ссылку
-    return {"file_url": f"/{UPLOAD_DIR}/{file_id}{file_ext}"}
+    return {"file_url": f"/{UPLOAD_DIR}/{file_id}{file_ext}",
+            "ext": file_ext}
 
 
 @app.get("/search/", response_class=HTMLResponse, name='search_page')
