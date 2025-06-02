@@ -77,7 +77,10 @@ class ConverterFunc:
             data = await request.json()
             filename = os.path.basename(data)
 
-            new_images = await self.api.convert_files(img_fmt=tf, filename=filename, output_folder='output')
+            if ff in ('heic', 'xls'):
+                print('Не обрабатывается!!!')
+            else:
+                new_images = await self.api.convert_files(img_fmt=tf, filename=filename, output_folder='output')
 
             result['new_images'] = new_images
             result['img_fmt'] = tf.capitalize()
@@ -87,4 +90,5 @@ class ConverterFunc:
 
 file_converter_api = ConverterApi()
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='jpeg').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='jpeg').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='png').router)

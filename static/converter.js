@@ -43,12 +43,19 @@ async function convertFile(data) {
         const result = await response.json();
 
         // Преобразуем массив в HTML-строку
-        const htmlString = result.new_images.map((item, index) =>
-            `<a href="/output/${item}" download><li>${item}</li></a>`).join('');
+        const htmlString = result.new_images.map((item) =>
+            `<div class="file">
+             <img src="/output/${item}" alt="">
+             <p>${item}</p>
+             <a href="/output/${item}" download><button type="button" class="btn btn-link">Скачать</button></a>
+             </div>`).join('');
+            
 
         fileInfo.innerHTML = `
                  <h4>Конвертация завершена. Скачайте файлы по ссылкам ниже:</h4>
-                 <ol>${htmlString}</ol>`;
+                 <div class="converted-files">
+                 ${htmlString}
+                 </div>`;
     });
 
 }
