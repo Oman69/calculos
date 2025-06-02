@@ -1,11 +1,11 @@
 import os
 import uuid
-
 import uvicorn
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.responses import FileResponse
 from geometry.api_geometry import router as math_router
 from converter.api_converter import router as converter_router
 from generators.api_generators import router as generator_router
@@ -15,11 +15,14 @@ import utils
 app = FastAPI()
 
 UPLOAD_DIR = "uploads"
+OUTPUT_DIR = "output"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 app.mount("/" + UPLOAD_DIR, StaticFiles(directory=UPLOAD_DIR), name=UPLOAD_DIR)
+app.mount("/" + OUTPUT_DIR, StaticFiles(directory=OUTPUT_DIR), name=OUTPUT_DIR)
 templates = Jinja2Templates(directory="templates")
 
 app.include_router(math_router)
@@ -51,18 +54,24 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
 @app.post("/upload/")
 async def upload_file(file: UploadFile = File(...)):
     # Генерируем уникальное имя файла
-    file_id = str(uuid.uuid4())
     # Получил разрешение
     file_ext = os.path.splitext(file.filename)[1]
-    file_path = os.path.join(UPLOAD_DIR, f"{file_id}{file_ext}")
+    file_path = os.path.join(UPLOAD_DIR, file.filename)
 
     # Сохраняем файл
     with open(file_path, "wb") as buffer:
         buffer.write(await file.read())
 
     # Возвращаем ссылку
-    return {"file_url": f"/{UPLOAD_DIR}/{file_id}{file_ext}",
+    return {"file_url": f"/{UPLOAD_DIR}/{file.filename}",
             "ext": file_ext}
+
+
+@app.get("/download/{filename}", response_class=FileResponse)
+async def download_file(filename: str):
+    # Реализация кода для получения и возврата запрошенного файла
+    file_path = os.path.join(OUTPUT_DIR, filename)
+    return FileResponse(path=file_path)
 
 
 @app.get("/search/", response_class=HTMLResponse, name='search_page')

@@ -41,7 +41,7 @@ class ConverterApi:
 
             # Сохраняем как JPEG
             output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-            new_images.append(output_path)
+            new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
             img.save(output_path, img_fmt, quality=95)
 
             print(f"Страница {page_num + 1} сохранена как {output_path}")

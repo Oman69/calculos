@@ -42,16 +42,16 @@ async function convertFile(data) {
 
         const result = await response.json();
 
-        let domain = window.location.origin;
         // Преобразуем массив в HTML-строку
-        const htmlString = result.new_images.map(item => `<a href="${domain + '/' + item}"><li>${item}</li></a>`).join('');
+        const htmlString = result.new_images.map((item, index) =>
+            `<a href="/output/${item}" download><li>${item}</li></a>`).join('');
+
         fileInfo.innerHTML = `
-                 <h4>Конвертация завершена!</h4>
+                 <h4>Конвертация завершена. Скачайте файлы по ссылкам ниже:</h4>
                  <ol>${htmlString}</ol>`;
     });
 
 }
-
 
 async function uploadFile(file) {
     const formData = new FormData();
