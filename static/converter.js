@@ -42,20 +42,27 @@ async function convertFile(data) {
 
         const result = await response.json();
 
-        // Преобразуем массив в HTML-строку
-        const htmlString = result.new_images.map((item) =>
-            `<div class="file">
-             <img src="/output/${item}" alt="">
-             <p>${item}</p>
-             <a href="/output/${item}" download><button type="button" class="btn btn-link">Скачать</button></a>
-             </div>`).join('');
-            
 
-        fileInfo.innerHTML = `
-                 <h4>Конвертация завершена. Скачайте файлы по ссылкам ниже:</h4>
-                 <div class="converted-files">
-                 ${htmlString}
-                 </div>`;
+        if (!result.error) {
+            // Преобразуем массив в HTML-строку
+            const htmlString = result.new_images.map((item) =>
+                `<div class="file">
+                 <img src="/output/${item}" alt="">
+                 <p>${item}</p>
+                 <a href="/output/${item}" download><button type="button" class="btn btn-link">Скачать</button></a>
+                 </div>`).join('');
+
+
+            fileInfo.innerHTML = `
+                     <h4>Конвертация завершена. Скачайте файлы по ссылкам ниже:</h4>
+                     <div class="converted-files">
+                     ${htmlString}
+                     </div>`;
+        } else {
+            fileInfo.innerHTML = `
+                     <h4 style="color:red;">${result.error}</h4>`;
+        }
+
     });
 
 }
@@ -74,7 +81,7 @@ async function uploadFile(file) {
 
         fileInfo.innerHTML = `
             <p>Файл <strong>${file.name}</strong> загружен!</p>
-            <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать в .jpg</button>
+            <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать</button>
         `;
 
         await convertFile(data)

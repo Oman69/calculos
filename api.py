@@ -86,6 +86,18 @@ def search_page(request: Request, query: str):
     )
 
 
+@app.get("/search_tag/", response_class=HTMLResponse, name='search_tag')
+def search_tag(request: Request, tag: str, category_num: int):
+
+    filter_pages = utils.search_by_tag(tag=tag, cat_num=category_num)
+
+    # Получить данные
+    return templates.TemplateResponse(
+        request=request, name="search.html",
+        context={"links": filter_pages}
+    )
+
+
 @app.get("/sitemap/", response_class=HTMLResponse, name='sitemap')
 def sitemap(request: Request):
 

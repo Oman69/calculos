@@ -2,6 +2,7 @@ import json
 import os
 import fitz
 from PIL import Image
+from pymupdf import EmptyFileError
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, UploadFile, File
 from starlette.templating import Jinja2Templates
@@ -14,7 +15,7 @@ class ConverterApi:
         self.templates = Jinja2Templates(directory="templates", auto_reload=True)
 
     @staticmethod
-    async def convert_files(filename: str, output_folder, img_fmt: str, dpi=300):
+    async def convert_pdf_docx_img(filename: str, output_folder, img_fmt: str, dpi=300):
         """
         Конвертирует PDF в JPEG изображения (по одной странице на файл)
 
@@ -64,7 +65,8 @@ class ConverterFunc:
             tf_cap = tf.capitalize()
 
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер',
-                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн'}
+                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн'
+                       }
 
             # Получить данные
             return self.api.templates.TemplateResponse(
@@ -76,19 +78,27 @@ class ConverterFunc:
             result = {}
             data = await request.json()
             filename = os.path.basename(data)
+            ext = os.path.splitext(filename)[1].lower()[1:]
 
-            if ff in ('heic', 'xls'):
-                print('Не обрабатывается!!!')
+            if ext != ff:
+                result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
             else:
-                new_images = await self.api.convert_files(img_fmt=tf, filename=filename, output_folder='output')
-
-            result['new_images'] = new_images
-            result['img_fmt'] = tf.capitalize()
+                new_images = await self.api.convert_pdf_docx_img(img_fmt=tf, filename=filename, output_folder='output')
+                result['new_images'] = new_images
+                result['img_fmt'] = tf.capitalize()
 
             return json.dumps(result)
 
 
 file_converter_api = ConverterApi()
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='jpeg').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='jpeg').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='png').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='webp').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='ico').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='tiff').router)
+
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='jpeg').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='png').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='webp').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='ico').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='tiff').router)

@@ -14,14 +14,16 @@ class FilesConverterApi:
 
         @self.router.get("", response_class=HTMLResponse, name='files_converter')
         async def files_converter(request: Request, limit: int = 6):
-
-            filter_pages = utils.select_main_pages_by_category(5, limit)
+            cat_num = 5
+            filter_pages = utils.select_main_pages_by_category(cat_num, limit)
 
             # Получить данные
             return self.templates.TemplateResponse(
                 request=request, name="home.html", context={'links': filter_pages,
                                                             'title': 'Конвертеры файлов ',
-                                                            'h1': 'Конвертеры файлов'})
+                                                            'h1': 'Конвертеры файлов',
+                                                            'tags': ('Pdf', 'Docx', 'Jpeg', 'Png', 'Ico'),
+                                                            'category': cat_num})
 
 
 files_converter_api = FilesConverterApi()

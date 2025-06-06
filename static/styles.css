@@ -122,7 +122,7 @@ a {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 2em;
     grid-auto-rows: 20vh;
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
 .links-block > a > .link {
@@ -181,6 +181,27 @@ a.selected {
 .new-pass:hover {
     text-decoration: underline;
 }
+
+.tags {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+}
+
+.tags > a > div {
+    text-align: center;
+    color: #9A10F2;
+    padding: 1em 0;
+    font-weight: 700;
+    transition: all 0.1s ease-in-out;
+}
+
+.tags > a > div:hover {
+    text-align: center;
+    color: #fff;
+    background-color: #9A10F2;
+    border-radius: 50%;
+}
+
 
 .footer {
     border-radius: 15px 15px 0 0;

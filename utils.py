@@ -22,6 +22,15 @@ def search_by_query(query: str):
     return filter_pages
 
 
+def search_by_tag(tag: str, cat_num: int):
+    query = select(pages).where(pages.c.name.icontains(tag), pages.c.category == cat_num)
+    filter_pages = []
+    with engine.connect() as conn:
+        for row in conn.execute(query):
+            filter_pages.append(row.t)
+    return filter_pages
+
+
 async def get_similar_page(search_str: str):
     query = select(pages).where(pages.c.name.like(search_str + "%"))
     with engine.connect() as conn:

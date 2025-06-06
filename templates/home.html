@@ -12,6 +12,14 @@
     </select>
 </div>
 <h1>{{ h1 }}</h1>
+{% if tags %}
+<div class="tags">
+{% for tag in tags %}
+    <a href="{{ url_for('search_tag').include_query_params(category_num=category, tag=tag) }}">
+    <div>{{ tag }}</div></a>
+{% endfor %}
+</div>
+{% endif %}
 <div class="links-block">
     {% for item in links %}
     <a href="{{ url_for(item.slug) }}">

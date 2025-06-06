@@ -41,7 +41,7 @@ def insert_to_db(table, params):
 # insert_to_db(pages, {'name': "Вес и масса", 'slug': "weight", 'category': 3, 'image': IMAGE_FOLDER + 'weight_i.png'})
 # insert_to_db(pages, {'name': "Расстояние и длина", 'slug': "distance", 'category': 3, 'image': IMAGE_FOLDER + 'distance_i.png'})
 # insert_to_db(pages, {'name': "Площадь", 'slug': "area", 'category': 3, 'image': IMAGE_FOLDER + 'square_i.png'})
-insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files_converter", 'category': 3, 'image': IMAGE_FOLDER + 'square_i.png'})
+#insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files_converter", 'category': 3, 'image': IMAGE_FOLDER + 'square_i.png'})
 #
 # insert_to_db(pages, {'name': "Граммы в Килограммы", 'slug': "g_kg", 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
 # insert_to_db(pages, {'name': "Граммы в Милиграммы", 'slug': "g_mg", 'category': 31, 'image': IMAGE_FOLDER + 'g_mg.png'})
@@ -188,9 +188,16 @@ insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files
 # insert_to_db(pages, {'name': "Генератор случайных чисел", 'slug': "random_number", 'category': 4, 'image': IMAGE_FOLDER + 'random_i.png'})
 
 
-# insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files_converter", 'category': 3, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(pages, {'name': "Pdf в Jpeg", 'slug': "pdf_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(pages, {'name': "Pdf в Png", 'slug': "pdf_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Docx в Jpeg", 'slug': "docx_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Pdf в Ico", 'slug': "pdf_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Pdf в Tiff", 'slug': "pdf_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+#insert_to_db(pages, {'name': "Pdf в WebP", 'slug': "pdf_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+
+# insert_to_db(pages, {'name': "Docx в Jpeg", 'slug': "docx_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Docx в Png", 'slug': "docx_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Docx в Ico", 'slug': "docx_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Docx в Tiff", 'slug': "docx_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Docx в WebP", 'slug': "docx_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 
 
