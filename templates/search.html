@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Страница поиска | Онлайн калькуляторы{% endblock %}
 {% block body %}
-<h1>Результаты поиска</h1>
+<h1>{{ h1 }}</h1>
 <div class="links-block">
     {% for item in links %}
     <a href="{{ url_for(item.slug) }}">

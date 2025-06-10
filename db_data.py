@@ -195,9 +195,13 @@ def insert_to_db(table, params):
 #insert_to_db(pages, {'name': "Pdf в WebP", 'slug': "pdf_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 
 # insert_to_db(pages, {'name': "Docx в Jpeg", 'slug': "docx_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Docx в Png", 'slug': "docx_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Docx в Ico", 'slug': "docx_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Docx в Tiff", 'slug': "docx_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Docx в WebP", 'slug': "docx_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Docx в Png", 'slug': "docx_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Docx в Ico", 'slug': "docx_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Docx в Tiff", 'slug': "docx_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Docx в WebP", 'slug': "docx_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 
-
+# insert_to_db(pages, {'name': "Heic в Jpeg", 'slug': "heic_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Heic в Png", 'slug': "heic_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Heic в Ico", 'slug': "heic_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Heic в Tiff", 'slug': "heic_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(pages, {'name': "Heic в WebP", 'slug': "heic_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})

@@ -1,5 +1,4 @@
 import os
-import uuid
 import uvicorn
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
@@ -82,7 +81,7 @@ def search_page(request: Request, query: str):
     # Получить данные
     return templates.TemplateResponse(
         request=request, name="search.html",
-        context={"links": filter_pages}
+        context={"links": filter_pages, 'h1': 'Результат поиска: ' + query}
     )
 
 
@@ -94,7 +93,7 @@ def search_tag(request: Request, tag: str, category_num: int):
     # Получить данные
     return templates.TemplateResponse(
         request=request, name="search.html",
-        context={"links": filter_pages}
+        context={"links": filter_pages, 'h1': tag}
     )
 
 

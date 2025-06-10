@@ -1,6 +1,7 @@
 import json
 import os
 import fitz
+import pillow_heif
 from PIL import Image
 from pymupdf import EmptyFileError
 from starlette.responses import HTMLResponse
@@ -15,39 +16,63 @@ class ConverterApi:
         self.templates = Jinja2Templates(directory="templates", auto_reload=True)
 
     @staticmethod
-    async def convert_pdf_docx_img(filename: str, output_folder, img_fmt: str, dpi=300):
+    async def convert_heic(filename: str, output_folder: str, img_fmt: str, filepath: str, new_images: list):
+
+        heif_file = pillow_heif.read_heif(filepath)
+        img = Image.frombytes(
+            heif_file.mode,
+            heif_file.size,
+            heif_file.data,
+            "raw",
+        )
+
+        output_path = os.path.join(output_folder, f"{filename.split('.')[0]}.{img_fmt}")
+        img.save(output_path, img_fmt, quality=95)
+        new_images.append(f"{filename.split('.')[0]}.{img_fmt}")
+
+    async def convert_file(self, filename: str, output_folder, img_fmt: str, ext: str, dpi=300):
         """
         Конвертирует PDF в JPEG изображения (по одной странице на файл)
 
         :param filename: Наименвоание файла на сервере
         :param img_fmt: Формат конвертируемого изображения
         :param output_folder: Папка для сохранения JPEG
+        :param ext: Расширение входящего файла
         :param dpi: Качество изображения (300 по умолчанию)
         """
         # Создаем папку, если её нет
         os.makedirs(output_folder, exist_ok=True)
         # Открываем PDF
         filepath = os.path.join('uploads', filename)
-        pdf_document = fitz.open(filepath)
 
         new_images = []
-        for page_num in range(len(pdf_document)):
-            page = pdf_document.load_page(page_num)
+        if ext == 'heic':
+            await self.convert_heic(filename=filename,
+                                    filepath=filepath,
+                                    img_fmt=img_fmt,
+                                    output_folder=output_folder,
+                                    new_images=new_images)
 
-            # Конвертируем страницу в изображение (пиксельная карта)
-            pix = page.get_pixmap(matrix=fitz.Matrix(dpi / 72, dpi / 72))
+        else:
+            new_document = fitz.open(filepath)
 
-            # Создаем изображение Pillow из данных
-            img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+            for page_num in range(len(new_document)):
+                page = new_document.load_page(page_num)
 
-            # Сохраняем как JPEG
-            output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-            new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-            img.save(output_path, img_fmt, quality=95)
+                # Конвертируем страницу в изображение (пиксельная карта)
+                pix = page.get_pixmap(matrix=fitz.Matrix(dpi / 72, dpi / 72))
 
-            print(f"Страница {page_num + 1} сохранена как {output_path}")
+                # Создаем изображение Pillow из данных
+                img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
 
-        pdf_document.close()
+                # Сохраняем как JPEG
+                output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+                new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+                img.save(output_path, img_fmt, quality=95)
+
+                print(f"Страница {page_num + 1} сохранена как {output_path}")
+
+            new_document.close()
 
         return new_images
 
@@ -83,7 +108,10 @@ class ConverterFunc:
             if ext != ff:
                 result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
             else:
-                new_images = await self.api.convert_pdf_docx_img(img_fmt=tf, filename=filename, output_folder='output')
+                new_images = await self.api.convert_file(img_fmt=tf,
+                                                         filename=filename,
+                                                         output_folder='output',
+                                                         ext=ext)
                 result['new_images'] = new_images
                 result['img_fmt'] = tf.capitalize()
 
@@ -102,3 +130,9 @@ file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, f
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='webp').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='ico').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='tiff').router)
+
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='jpeg').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='png').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='ico').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='tiff').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='webp').router)
