@@ -202,6 +202,9 @@ def insert_to_db(table, params):
 
 # insert_to_db(pages, {'name': "Heic в Jpeg", 'slug': "heic_to_jpeg", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(pages, {'name': "Heic в Png", 'slug': "heic_to_png", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Heic в Ico", 'slug': "heic_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Heic в Tiff", 'slug': "heic_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(pages, {'name': "Heic в WebP", 'slug': "heic_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Heic в Ico", 'slug': "heic_to_ico", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Heic в Tiff", 'slug': "heic_to_tiff", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(pages, {'name': "Heic в WebP", 'slug': "heic_to_webp", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+
+# Convert to PDF
+insert_to_db(pages, {'name': "Jpeg в Pdf", 'slug': "jpeg_to_pdf", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})

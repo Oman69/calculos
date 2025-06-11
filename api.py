@@ -1,4 +1,6 @@
 import os
+from typing import List
+
 import uvicorn
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
@@ -51,19 +53,22 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
 
 
 @app.post("/upload/")
-async def upload_file(file: UploadFile = File(...)):
-    # Генерируем уникальное имя файла
-    # Получил разрешение
-    file_ext = os.path.splitext(file.filename)[1]
-    file_path = os.path.join(UPLOAD_DIR, file.filename)
+async def upload_file(files: List[UploadFile]):
 
-    # Сохраняем файл
-    with open(file_path, "wb") as buffer:
-        buffer.write(await file.read())
+    response_data = {}
+    response_data.setdefault('file_urls', [])
 
-    # Возвращаем ссылку
-    return {"file_url": f"/{UPLOAD_DIR}/{file.filename}",
-            "ext": file_ext}
+    for file in files:
+        # Получил путь к файлу
+        file_path = os.path.join(UPLOAD_DIR, file.filename)
+
+        # Сохраняем файл
+        with open(file_path, "wb") as buffer:
+            buffer.write(await file.read())
+
+        response_data['file_urls'].append(f"/{UPLOAD_DIR}/{file.filename}")
+
+    return response_data
 
 
 @app.get("/download/{filename}", response_class=FileResponse)

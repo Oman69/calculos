@@ -30,7 +30,33 @@ class ConverterApi:
         img.save(output_path, img_fmt, quality=95)
         new_images.append(f"{filename.split('.')[0]}.{img_fmt}")
 
-    async def convert_file(self, filename: str, output_folder, img_fmt: str, ext: str, dpi=300):
+    @staticmethod
+    async def convert_few_type(filename: str, output_folder: str, img_fmt: str, filepath: str, new_images: list):
+
+        new_document = fitz.open(filepath)
+
+        for page_num in range(len(new_document)):
+            page = new_document.load_page(page_num)
+
+            # Конвертируем страницу в изображение (пиксельная карта)
+            pix = page.get_pixmap(matrix=fitz.Matrix(300 / 72, 300 / 72))
+
+            # Создаем изображение Pillow из данных
+            img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+
+            # Сохраняем как JPEG
+            output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+            new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+            img.save(output_path, img_fmt, quality=95)
+
+            print(f"Страница {page_num + 1} сохранена как {output_path}")
+
+        new_document.close()
+
+    async def convert_to_pdf(self, filename: str, output_folder, img_fmt: str, ext: str):
+        pass
+
+    async def convert_file(self, filename: str, output_folder, img_fmt: str, ext: str):
         """
         Конвертирует PDF в JPEG изображения (по одной странице на файл)
 
@@ -40,39 +66,23 @@ class ConverterApi:
         :param ext: Расширение входящего файла
         :param dpi: Качество изображения (300 по умолчанию)
         """
+
         # Создаем папку, если её нет
         os.makedirs(output_folder, exist_ok=True)
         # Открываем PDF
         filepath = os.path.join('uploads', filename)
 
         new_images = []
+        params = {'filename': filename,
+                  'filepath': filepath,
+                  'img_fmt': img_fmt,
+                  'output_folder': output_folder,
+                  'new_images': new_images}
+
         if ext == 'heic':
-            await self.convert_heic(filename=filename,
-                                    filepath=filepath,
-                                    img_fmt=img_fmt,
-                                    output_folder=output_folder,
-                                    new_images=new_images)
-
+            await self.convert_heic(**params)
         else:
-            new_document = fitz.open(filepath)
-
-            for page_num in range(len(new_document)):
-                page = new_document.load_page(page_num)
-
-                # Конвертируем страницу в изображение (пиксельная карта)
-                pix = page.get_pixmap(matrix=fitz.Matrix(dpi / 72, dpi / 72))
-
-                # Создаем изображение Pillow из данных
-                img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
-
-                # Сохраняем как JPEG
-                output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-                new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-                img.save(output_path, img_fmt, quality=95)
-
-                print(f"Страница {page_num + 1} сохранена как {output_path}")
-
-            new_document.close()
+            await self.convert_few_type(**params)
 
         return new_images
 
@@ -90,8 +100,7 @@ class ConverterFunc:
             tf_cap = tf.capitalize()
 
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер',
-                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн'
-                       }
+                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн'}
 
             # Получить данные
             return self.api.templates.TemplateResponse(
@@ -102,18 +111,20 @@ class ConverterFunc:
 
             result = {}
             data = await request.json()
-            filename = os.path.basename(data)
-            ext = os.path.splitext(filename)[1].lower()[1:]
+            file_urls = data.get('file_urls')
+            for url in file_urls:
+                filename = os.path.basename(url)
+                ext = os.path.splitext(filename)[1].lower()[1:]
 
-            if ext != ff:
-                result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
-            else:
-                new_images = await self.api.convert_file(img_fmt=tf,
-                                                         filename=filename,
-                                                         output_folder='output',
-                                                         ext=ext)
-                result['new_images'] = new_images
-                result['img_fmt'] = tf.capitalize()
+                if ext != ff and ext != 'jpg':
+                    result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
+                else:
+                    new_images = await self.api.convert_file(img_fmt=tf,
+                                                             filename=filename,
+                                                             output_folder='output',
+                                                             ext=ext)
+                    result['new_images'] = new_images
+                    result['img_fmt'] = tf.capitalize()
 
             return json.dumps(result)
 
@@ -136,3 +147,5 @@ file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, f
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='ico').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='tiff').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='webp').router)
+
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='pdf').router)
