@@ -20,8 +20,8 @@
         </div>
 
         <div class="">
-            <h5>Длина и расстояние</h5>
-            {% for item in distance_pages %}
+            <h5>Конвертеры файлов</h5>
+            {% for item in files_pages %}
             <a href="{{ url_for(item.slug) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}
@@ -38,6 +38,14 @@
         <div class="">
             <h5>Генераторы</h5>
             {% for item in generators_pages %}
+            <a href="{{ url_for(item.slug) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
+            <h5>Длина и расстояние</h5>
+            {% for item in distance_pages %}
             <a href="{{ url_for(item.slug) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}

@@ -3,7 +3,6 @@ import os
 import fitz
 import pillow_heif
 from PIL import Image
-from pymupdf import EmptyFileError
 from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, UploadFile, File
 from starlette.templating import Jinja2Templates
@@ -26,9 +25,10 @@ class ConverterApi:
             "raw",
         )
 
-        output_path = os.path.join(output_folder, f"{filename.split('.')[0]}.{img_fmt}")
+        new_filename = f"{filename.split('.')[0]}.{img_fmt}"
+        output_path = os.path.join(output_folder, new_filename)
         img.save(output_path, img_fmt, quality=95)
-        new_images.append(f"{filename.split('.')[0]}.{img_fmt}")
+        new_images.append(new_filename)
 
     @staticmethod
     async def convert_few_type(filename: str, output_folder: str, img_fmt: str, filepath: str, new_images: list):
@@ -45,20 +45,28 @@ class ConverterApi:
             img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
 
             # Сохраняем как JPEG
-            output_path = os.path.join(output_folder, f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
-            new_images.append(f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}")
+            new_filename = f"{filename.split('.')[0]}_{page_num + 1}.{img_fmt}"
+            output_path = os.path.join(output_folder, new_filename)
+            new_images.append(new_filename)
             img.save(output_path, img_fmt, quality=95)
 
             print(f"Страница {page_num + 1} сохранена как {output_path}")
 
         new_document.close()
 
-    async def convert_to_pdf(self, filename: str, output_folder, img_fmt: str, ext: str):
-        pass
+    @staticmethod
+    async def convert_to_pdf(new_files: list):
 
-    async def convert_file(self, filename: str, output_folder, img_fmt: str, ext: str):
+        file_paths = [os.path.join('uploads', os.path.basename(file)) for file in new_files]
+        images = [Image.open(f) for f in file_paths]
+        new_name = os.path.basename(new_files[0]).split('.')[0] + '.pdf'
+        output_path = os.path.join('output', new_name)
+        images[0].save(output_path, save_all=True, append_images=images[1:])
+        return [new_name]
+
+    async def convert_file(self, filename: str, output_folder:str, img_fmt: str, ext: str):
         """
-        Конвертирует PDF в JPEG изображения (по одной странице на файл)
+        Конвертирует один или несколько файлов в зависимости от типа
 
         :param filename: Наименвоание файла на сервере
         :param img_fmt: Формат конвертируемого изображения
@@ -110,22 +118,27 @@ class ConverterFunc:
         async def convert(request: Request):
 
             result = {}
+            result['new_images'] = []
+            result['img_fmt'] = tf.capitalize()
+
             data = await request.json()
             file_urls = data.get('file_urls')
-            for url in file_urls:
-                filename = os.path.basename(url)
-                ext = os.path.splitext(filename)[1].lower()[1:]
 
-                if ext != ff and ext != 'jpg':
-                    result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
+            ext = [os.path.splitext(filename)[1].lower()[1:] for filename in file_urls]
+            if (len(set(ext)) > 1 or ext[0] != ff) and ext[0] != 'jpg':
+                result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
+            else:
+                if tf == 'pdf':
+                    new_pdf = await self.api.convert_to_pdf(new_files=file_urls)
+                    result['new_images'].append(new_pdf)
                 else:
-                    new_images = await self.api.convert_file(img_fmt=tf,
-                                                             filename=filename,
-                                                             output_folder='output',
-                                                             ext=ext)
-                    result['new_images'] = new_images
-                    result['img_fmt'] = tf.capitalize()
-
+                    for url in file_urls:
+                        filename = os.path.basename(url)
+                        new_images = await self.api.convert_file(img_fmt=tf,
+                                                                 filename=filename,
+                                                                 output_folder='output',
+                                                                 ext=ff)
+                        result['new_images'].append(new_images)
             return json.dumps(result)
 
 
@@ -148,4 +161,12 @@ file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, f
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='tiff').router)
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='webp').router)
 
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='png', tf='pdf').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='webp', tf='pdf').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='pdf').router)
+
 file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='pdf').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='png').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='webp').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='ico').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='tiff').router)
