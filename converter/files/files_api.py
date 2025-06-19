@@ -7,12 +7,24 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, UploadFile, File
 from starlette.templating import Jinja2Templates
 
+from converter.files.texts import pdf_jpeg
+
 
 class ConverterApi:
 
     def __init__(self):
         self.router = APIRouter(prefix='', tags=['Converter'])
         self.templates = Jinja2Templates(directory="templates", auto_reload=True)
+
+    # Проверить валидность изображения
+    @staticmethod
+    def is_valid_image_pillow(file_name):
+        try:
+            with Image.open(file_name) as img:
+                img.verify()
+                return True
+        except (IOError, SyntaxError):
+            return False
 
     @staticmethod
     async def convert_heic(filename: str, output_folder: str, img_fmt: str, filepath: str, new_images: list):
@@ -54,17 +66,34 @@ class ConverterApi:
 
         new_document.close()
 
-    @staticmethod
-    async def convert_to_pdf(new_files: list):
+    async def convert_to_pdf(self, from_format: str, new_files: list):
 
-        file_paths = [os.path.join('uploads', os.path.basename(file)) for file in new_files]
+        # ToDo Добавить обработку Heic
+
+        if from_format == 'heic':
+
+            jpg_files = []
+            for file in new_files:
+                filename = os.path.basename(file)
+                filepath = os.path.join('uploads', filename)
+                await self.convert_heic(filepath=filepath,
+                                        filename=filename,
+                                        new_images=jpg_files,
+                                        img_fmt='jpeg',
+                                        output_folder='output')
+            file_paths = [os.path.join('output', os.path.basename(file)) for file in jpg_files]
+
+        else:
+            file_paths = [os.path.join('uploads', os.path.basename(file)) for file in new_files if
+                          self.is_valid_image_pillow(os.path.join('uploads', os.path.basename(file)))]
+
         images = [Image.open(f) for f in file_paths]
         new_name = os.path.basename(new_files[0]).split('.')[0] + '.pdf'
         output_path = os.path.join('output', new_name)
         images[0].save(output_path, save_all=True, append_images=images[1:])
         return [new_name]
 
-    async def convert_file(self, filename: str, output_folder:str, img_fmt: str, ext: str):
+    async def convert_file(self, filename: str, output_folder: str, img_fmt: str, ext: str):
         """
         Конвертирует один или несколько файлов в зависимости от типа
 
@@ -96,27 +125,29 @@ class ConverterApi:
 
 
 class ConverterFunc:
-    def __init__(self, api, ff: str, tf: str):
+    def __init__(self, api):
 
         self.api: ConverterApi = api
-        self.router = APIRouter(prefix='/' + ff + '-' + tf, tags=[ff + '_' + tf])
-        # self.router = APIRouter(prefix='/convert', tags=['convert'])
+        self.router = APIRouter(prefix='/convert')
 
-        # @api.router.get('/' + ff + '-' + tf, response_class=HTMLResponse, name=ff + '_to_' + tf)
         @api.router.get('/', response_class=HTMLResponse, name='files')
         async def files(request: Request, ff: str, tf: str):
 
             ff_cap = ff.capitalize()
             tf_cap = tf.capitalize()
 
+            main_texts = {
+                          'pdf-jpeg': pdf_jpeg,
+                         }
+
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер',
-                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн'}
+                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн',
+                       'main_text': main_texts[ff + '-' + tf]}
 
             # Получить данные
             return self.api.templates.TemplateResponse(
                 request=request, name="converter/files_converter.html", context=context)
 
-        # @api.router.post('/' + ff + '-' + tf, response_class=HTMLResponse)
         @api.router.post('/', response_class=HTMLResponse)
         async def convert(request: Request, ff: str, tf: str):
 
@@ -127,12 +158,9 @@ class ConverterFunc:
             data = await request.json()
             file_urls = data.get('file_urls')
 
-            ext = [os.path.splitext(filename)[1].lower()[1:] for filename in file_urls]
-            if (len(set(ext)) > 1 or ext[0] != ff) and ext[0] != 'jpg':
-                result['error'] = 'Загрузите файл в формате ' + ff.capitalize() + '!'
-            else:
+            try:
                 if tf == 'pdf':
-                    new_pdf = await self.api.convert_to_pdf(new_files=file_urls)
+                    new_pdf = await self.api.convert_to_pdf(from_format=ff, new_files=file_urls)
                     result['new_images'].append(new_pdf)
                 else:
                     for url in file_urls:
@@ -142,34 +170,11 @@ class ConverterFunc:
                                                                  output_folder='output',
                                                                  ext=ff)
                         result['new_images'].append(new_images)
+            except Exception as E:
+                result['error'] = f'Ошибка! Загрузите файл в формате {ff.capitalize()}.'
+
             return json.dumps(result)
 
 
 file_converter_api = ConverterApi()
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='jpeg').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='png').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='webp').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='ico').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='pdf', tf='tiff').router)
-
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='jpeg').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='png').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='webp').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='ico').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='docx', tf='tiff').router)
-
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='jpeg').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='png').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='ico').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='tiff').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='webp').router)
-
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='png', tf='pdf').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='webp', tf='pdf').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='heic', tf='pdf').router)
-
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='pdf').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='png').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='webp').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='ico').router)
-file_converter_api.router.include_router(ConverterFunc(api=file_converter_api, ff='jpeg', tf='tiff').router)
+file_converter_api.router.include_router(ConverterFunc(api=file_converter_api).router)

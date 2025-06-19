@@ -39,4 +39,10 @@
 </div>
 <div id="file-info"></div>
 
+{% if main_text %}
+<div class="main-descript">
+    {{ main_text | safe }}
+</div>
+{% endif %}
+
 {% endblock %}

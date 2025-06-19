@@ -205,15 +205,18 @@ def insert_to_db(table, params):
 # insert_to_db(converter_pages, {'name': "Heic в Ico",  'ff': "heic", 'tf': 'ico', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(converter_pages, {'name': "Heic в Tiff",  'ff': "heic", 'tf': 'tiff', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(converter_pages, {'name': "Heic в WebP",  'ff': "heic", 'tf': 'webp', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+insert_to_db(converter_pages, {'name': "Heic в Pdf", 'ff': "heic", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'}) #ToDo Пока не работает
 #
-insert_to_db(converter_pages, {'name': "Jpeg в Pdf", 'ff': "jpeg", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(converter_pages, {'name': "Jpeg в Png", 'ff': "jpeg", 'tf': 'png', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(converter_pages, {'name': "Jpeg в Webp", 'ff': "jpeg", 'tf': 'webp', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(converter_pages, {'name': "Jpeg в Ico", 'ff': "jpeg", 'tf': 'ico', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(converter_pages, {'name': "Jpeg в Tiff", 'ff': "jpeg", 'tf': 'tiff', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Jpeg в Pdf", 'ff': "jpeg", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Jpeg в Png", 'ff': "jpeg", 'tf': 'png', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Jpeg в Webp", 'ff': "jpeg", 'tf': 'webp', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Jpeg в Ico", 'ff': "jpeg", 'tf': 'ico', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Jpeg в Tiff", 'ff': "jpeg", 'tf': 'tiff', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 #
-insert_to_db(converter_pages, {'name': "Txt в Jpeg", 'ff': "txt", 'tf': 'jpeg', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-#
-# insert_to_db(converter_pages, {'name': "Png в Pdf", 'slug': "png_to_pdf", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-# insert_to_db(converter_pages, {'name': "Heic в Pdf", 'slug': "heic_to_pdf", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Png в Pdf", 'ff': "png", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Png в Jpeg", 'ff': "png", 'tf': 'jpeg', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Png в Webp", 'ff': "png", 'tf': 'webp', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Png в Ico", 'ff': "png", 'tf': 'ico', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+# insert_to_db(converter_pages, {'name': "Png в Tiff", 'ff': "png", 'tf': 'tiff', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
+
 # insert_to_db(converter_pages, {'name': "Webp в Pdf", 'slug': "webp_to_pdf", 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
