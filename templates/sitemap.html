@@ -22,7 +22,7 @@
         <div class="">
             <h5>Конвертеры файлов</h5>
             {% for item in files_pages %}
-            <a href="{{ url_for(item.slug) }}">
+            <a href="{{ url_for('files').include_query_params(ff=item.slug.split('_to_')[0], tf=item.slug.split('_to_')[1]) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}
         </div>

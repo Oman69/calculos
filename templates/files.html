@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Онлайн калькуляторы{% endblock %}
+{% block body %}
+<div class="select-block">
+    <span></span>
+    <select class="form-select" id="selectMenu">
+        <option selected>Показать записей</option>
+        <option value="6">Показать: 6</option>
+        <option value="9">Показать: 9</option>
+        <option value="12">Показать: 12</option>
+        <option value="100">Показать: все</option>
+    </select>
+</div>
+<h1>{{ h1 }}</h1>
+{% if tags %}
+<div class="tags">
+{% for tag in tags %}
+    <a href="{{ url_for('search_tag').include_query_params(category_num=category, tag=tag) }}">
+    <div>{{ tag }}</div></a>
+{% endfor %}
+</div>
+{% endif %}
+<div class="links-block">
+    {% for item in links %}
+    <a href="{{ url_for('files').include_query_params(ff=item.ff, tf=item.tf) }}">
+    <div class="link">
+        <span>{{ item.name }}</span>
+        <div class="link-img">
+            {% if item.image %}
+            <img src="{{ url_for('static', path=item.image) }}" alt="">
+            {% endif %}
+        </div>
+    </div></a>
+    {% endfor %}
+</div>
+
+{% endblock %}

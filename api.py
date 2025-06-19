@@ -34,7 +34,7 @@ app.include_router(generator_router)
 @app.get("/", response_class=HTMLResponse, name='home_page')
 def home_page(request: Request, category: int = 1, limit: int = 6):
     headers = {1: 'Геометрические калькуляторы',
-               3: 'Конвертеры величин',
+               3: 'Конвертеры',
                4: 'Генераторы'}
 
     header_h1 = headers.get(category, 'Заголовок H1')
@@ -42,6 +42,7 @@ def home_page(request: Request, category: int = 1, limit: int = 6):
     filter_pages = utils.select_main_pages_by_category(category, limit)
 
     context = {"h1": header_h1,
+               'title': header_h1,
                "links": filter_pages,
                'category': category}
 
@@ -97,7 +98,7 @@ def search_tag(request: Request, tag: str, category_num: int):
 
     # Получить данные
     return templates.TemplateResponse(
-        request=request, name="search.html",
+        request=request, name="search_tag.html",
         context={"links": filter_pages, 'h1': tag}
     )
 

@@ -100,9 +100,11 @@ class ConverterFunc:
 
         self.api: ConverterApi = api
         self.router = APIRouter(prefix='/' + ff + '-' + tf, tags=[ff + '_' + tf])
+        # self.router = APIRouter(prefix='/convert', tags=['convert'])
 
-        @api.router.get('/' + ff + '-' + tf, response_class=HTMLResponse, name=ff + '_to_' + tf)
-        async def new_func(request: Request):
+        # @api.router.get('/' + ff + '-' + tf, response_class=HTMLResponse, name=ff + '_to_' + tf)
+        @api.router.get('/', response_class=HTMLResponse, name='files')
+        async def files(request: Request, ff: str, tf: str):
 
             ff_cap = ff.capitalize()
             tf_cap = tf.capitalize()
@@ -114,8 +116,9 @@ class ConverterFunc:
             return self.api.templates.TemplateResponse(
                 request=request, name="converter/files_converter.html", context=context)
 
-        @api.router.post('/' + ff + '-' + tf, response_class=HTMLResponse)
-        async def convert(request: Request):
+        # @api.router.post('/' + ff + '-' + tf, response_class=HTMLResponse)
+        @api.router.post('/', response_class=HTMLResponse)
+        async def convert(request: Request, ff: str, tf: str):
 
             result = {}
             result['new_images'] = []

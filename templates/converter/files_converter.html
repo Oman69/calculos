@@ -3,15 +3,17 @@
 {% block body %}
 
 <h1>{{ h1 }}</h1>
+<h5>конвертировать файлы</h5>
+
 {% if tags %}
 {% for tag in tags %}
             <a href="{{ url_for(search_tag).include_query_params(category_num=5) }}">
             <div>{{ tag }}</div></a>
 {% endfor %}
 {% endif %}
-<div class="format-form">
+<form class="format-form" action="">
     <div class="">
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select" aria-label="Default select example" name="ff">
       <option selected value="pdf">Pdf</option>
       <option value="docx">Docx</option>
       <option value="heic">Heic</option>
@@ -20,14 +22,16 @@
       </select>
     </div>
     <div class="">
-      <select class="form-select" aria-label="Default select example">
+      <select class="form-select" aria-label="Default select example" name="tf">
       <option selected value="jpeg">Jpeg</option>
       <option value="png">Png</option>
       <option value="webp">WebP</option>
       </select>
     </div>
-
-</div>
+    <div class="">
+        <button type="submit" class="btn btn-dark">Перейти</button>
+    </div>
+</form>
 
 <div id="drop-zone">
 Перетащите файлы сюда или кликните для выбора
