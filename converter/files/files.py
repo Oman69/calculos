@@ -22,7 +22,7 @@ class FilesConverterApi:
                 request=request, name="files.html", context={'links': filter_pages,
                                                             'title': 'Конвертеры файлов ',
                                                             'h1': 'Конвертеры файлов',
-
+                                                            'page': 'files',
                                                             'tags': ('Pdf',
                                                                      'Docx',
                                                                      'Jpeg',
@@ -31,7 +31,6 @@ class FilesConverterApi:
                                                                      'Heic',
                                                                      'WebP',
                                                                      'Tiff'),
-
                                                             'category': cat_num})
 
 

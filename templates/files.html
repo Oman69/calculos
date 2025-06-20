@@ -22,7 +22,7 @@
 {% endif %}
 <div class="links-block">
     {% for item in links %}
-    <a href="{{ url_for('files').include_query_params(ff=item.ff, tf=item.tf) }}">
+    <a href="{{ url_for(page).include_query_params(ff=item.ff, tf=item.tf) }}">
     <div class="link">
         <span>{{ item.name }}</span>
         <div class="link-img">

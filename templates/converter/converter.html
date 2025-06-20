@@ -4,14 +4,35 @@
 <h1>{{ h1 }}</h1>
 <h5>{{ h2 }}</h5>
 
+<form class="format-form">
+    <div class="">
+      <select class="form-select" aria-label="Default select example" name="ff">
+      {% for key, value in formats|items %}
+      <option value={{key}}>{{ value }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="">
+      <select class="form-select" aria-label="Default select example" name="tf">
+      {% for key, value in formats|items %}
+      <option value="{{key}}">{{ value }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="">
+        <button type="submit" class="btn btn-dark">Перейти</button>
+    </div>
+</form>
+
+
 <div class="main_form">
     <div class="border-form">
-
-<form action="{{ url_for(action) }}" method="get">
+        <form action="{{ url_for(action) }}" method="post">
             <div class="mb-3">
                 <label class="form-label" for="value">Введите значение <b>({{ item_name }})</b></label>
               <input type="number" class="form-control" id="value" name="value" step="any" required>
-              <input type="hidden" name="item_change" value={{item_change}}>
+              <input type="hidden" name="ff" value={{ff}}>
+              <input type="hidden" name="tf" value={{tf}}>
             </div>
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>
@@ -25,20 +46,20 @@
             <h3> <span> {{ error }} </span></h3>
         </div>
         {% endif %}
-    </div>
-    <div class="schema-img">
-        {% block schema_img %}
-        <img src="{{ url_for('static', path='images/logo.png') }}" alt="">
-        {% endblock %}
-    </div>
-</div>
+        </div>
+        <div class="schema-img">
+            {% block schema_img %}
+            <img src="{{ url_for('static', path='images/logo.png') }}" alt="">
+            {% endblock %}
+        </div>
+        </div>
 
 
-<div class="main-descript">
 {% if main_text %}
+<div class="main-descript">
     {{ main_text | safe }}
-{% endif %}
 </div>
+{% endif %}
 {% if similar_pages|length > 0 %}
 <h4>Похожие запросы</h4>
 <div class="similar-links">

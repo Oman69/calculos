@@ -43,12 +43,11 @@ def insert_to_db(table, params):
 # insert_to_db(pages, {'name': "Площадь", 'slug': "area", 'category': 3, 'image': IMAGE_FOLDER + 'square_i.png'})
 #insert_to_db(pages, {'name': "Конвертеры файлов", 'slug': "files_converter", 'category': 3, 'image': IMAGE_FOLDER + 'square_i.png'})
 #
-# insert_to_db(pages, {'name': "Граммы в Килограммы", 'slug': "g_kg", 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
-# insert_to_db(pages, {'name': "Граммы в Милиграммы", 'slug': "g_mg", 'category': 31, 'image': IMAGE_FOLDER + 'g_mg.png'})
-# insert_to_db(pages, {'name': "Граммы в Микрограммы", 'slug': "g_mkg", 'category': 31, 'image': IMAGE_FOLDER + 'g_mkg.png'})
-# insert_to_db(pages, {'name': "Граммы в Центнеры", 'slug': "g_c", 'category': 31, 'image': IMAGE_FOLDER + 'g_c.png'})
-# insert_to_db(pages, {'name': "Граммы в Тонны", 'slug': "g_t", 'category': 31, 'image': IMAGE_FOLDER + 'g_t.png'})
-# insert_to_db(pages, {'name': "Граммы в Караты", 'slug': "g_k", 'category': 31, 'image': IMAGE_FOLDER + 'g_k.png'})
+insert_to_db(converter_pages, {'name': "Граммы в Килограммы", 'ff': "g", 'tf': 'kg', 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
+insert_to_db(converter_pages, {'name': "Граммы в Милиграммы", 'ff': "g", 'tf': 'mg', 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
+insert_to_db(converter_pages, {'name': "Граммы в Микрограммы", 'ff': "g", 'tf': 'mkg', 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
+insert_to_db(converter_pages, {'name': "Граммы в Центнеры", 'ff': "g", 'tf': 't', 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
+insert_to_db(converter_pages, {'name': "Граммы в Караты", 'ff': "g", 'tf': 'k', 'category': 31, 'image': IMAGE_FOLDER + 'g_kg.png'})
 #
 # insert_to_db(pages, {'name': "Килограммы в Граммы", 'slug': "kg_g", 'category': 31, 'image': IMAGE_FOLDER + 'kg_g.png'})
 # insert_to_db(pages, {'name': "Килограммы в Милиграммы", 'slug': "kg_mg", 'category': 31, 'image': IMAGE_FOLDER + 'kg_mg.png'})
@@ -205,7 +204,7 @@ def insert_to_db(table, params):
 # insert_to_db(converter_pages, {'name': "Heic в Ico",  'ff': "heic", 'tf': 'ico', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(converter_pages, {'name': "Heic в Tiff",  'ff': "heic", 'tf': 'tiff', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(converter_pages, {'name': "Heic в WebP",  'ff': "heic", 'tf': 'webp', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
-insert_to_db(converter_pages, {'name': "Heic в Pdf", 'ff': "heic", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'}) #ToDo Пока не работает
+# insert_to_db(converter_pages, {'name': "Heic в Pdf", 'ff': "heic", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 #
 # insert_to_db(converter_pages, {'name': "Jpeg в Pdf", 'ff': "jpeg", 'tf': 'pdf', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})
 # insert_to_db(converter_pages, {'name': "Jpeg в Png", 'ff': "jpeg", 'tf': 'png', 'category': 5, 'image': IMAGE_FOLDER + 'random_i.png'})

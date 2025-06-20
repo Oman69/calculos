@@ -142,7 +142,7 @@ class ConverterFunc:
 
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер',
                        'h1': ff_cap + ' в ' + tf_cap + ' онлайн',
-                       'main_text': main_texts[ff + '-' + tf]}
+                       'main_text': main_texts.get(ff + '-' + tf)}
 
             # Получить данные
             return self.api.templates.TemplateResponse(
