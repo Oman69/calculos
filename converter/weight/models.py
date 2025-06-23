@@ -18,7 +18,8 @@ class Gram(WeightModel):
             'mkg': self.value * 1_000_000,
             'c': self.value / 100_000,
             't': self.value / 1_000_000,
-            'k': self.value * 5
+            'k': self.value * 5,
+            'g': self.value
         }
 
         return operations[self.item_change]

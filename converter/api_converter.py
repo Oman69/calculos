@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 
-from converter.distance.distance import distance_api
+from converter.distance.api import distance_api
 from converter.area.area import area_api
 from converter.files.files import files_converter_api
-from converter.weight.weight import weight_api
+from converter.weight.api import weight_api
 
 router = APIRouter(prefix='/converter', tags=['Converter'])
 

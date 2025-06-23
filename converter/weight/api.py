@@ -1,5 +1,5 @@
 from starlette.responses import HTMLResponse
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Body
 from starlette.templating import Jinja2Templates
 import utils
 from converter.weight.models import Microgram, Milligram, Gram, Kilogram, Centner, Ton
@@ -50,6 +50,7 @@ class WeightApi:
                          'h1': f'{from_str}ы в {to_str.lower()}ы',
                          'h3': f'Итого {to_str.lower()}',
                          'action': 'weight-result',
+                         'page': 'weight-input',
                          'item_name': f'{from_str}ы',
                          "main_text": '',
                          'formats': formats_str,
@@ -60,9 +61,8 @@ class WeightApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.post("/", response_class=HTMLResponse, name='weight-result')
-        # async def convert(request: Request, ff: str, tf: str, value: float):
-        async def convert(request: Request):
+        @self.router.get("/result/", response_class=HTMLResponse, name='weight-result')
+        async def convert(request: Request, ff: str, tf: str, value: float):
 
             formats_models = {
                 'mkg': Microgram,

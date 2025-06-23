@@ -4,17 +4,17 @@
 <h1>{{ h1 }}</h1>
 <h5>{{ h2 }}</h5>
 
-<form class="format-form">
+<form class="format-form" action="{{ url_for(page) }}">
     <div class="">
-      <select class="form-select" aria-label="Default select example" name="ff">
-      {% for key, value in formats|items %}
+      <select class="form-select" aria-label="Default select example" name="ff" id="form-ff">
+      {% for key, value in formats %}
       <option value={{key}}>{{ value }}</option>
       {% endfor %}
       </select>
     </div>
     <div class="">
-      <select class="form-select" aria-label="Default select example" name="tf">
-      {% for key, value in formats|items %}
+      <select class="form-select" aria-label="Default select example" name="tf" id="form-tf">
+      {% for key, value in formats %}
       <option value="{{key}}">{{ value }}</option>
       {% endfor %}
       </select>
@@ -27,7 +27,7 @@
 
 <div class="main_form">
     <div class="border-form">
-        <form action="{{ url_for(action) }}" method="post">
+        <form action="{{ url_for(action) }}" method="get">
             <div class="mb-3">
                 <label class="form-label" for="value">Введите значение <b>({{ item_name }})</b></label>
               <input type="number" class="form-control" id="value" name="value" step="any" required>

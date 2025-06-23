@@ -1,7 +1,18 @@
+// Получаем параметр из URL
+const urlParams = new URLSearchParams(window.location.search);
+const ff = urlParams.get('ff');
+const tf = urlParams.get('tf');
+
+// Устанавливаем selected
+if (ff && tf) {
+document.getElementById('form-ff').value = ff;
+document.getElementById('form-tf').value = tf;
+}
+
+
 let select_field = document.getElementById('selectMenu');
 select_field.addEventListener('change', function() {
-let url = window.location.href.split('?')[0] + '?limit=' + this.value;
-window.location.href = url;
+    window.location.href = window.location.href.split('?')[0] + '?limit=' + this.value;
 });
 
 
