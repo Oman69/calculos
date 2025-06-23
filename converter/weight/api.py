@@ -6,11 +6,22 @@ from converter.weight.models import Microgram, Milligram, Gram, Kilogram, Centne
 
 
 class WeightApi:
+    """
+    Класс конвертера "Вес и масса"
+    """
 
     def __init__(self):
         self.router = APIRouter(prefix='/weight', tags=['Weight'])
         self.templates = Jinja2Templates(directory="templates")
         self.context = {}
+        self.formats_models = {
+                'mkg': Microgram,
+                'mg': Milligram,
+                'g': Gram,
+                'kg': Kilogram,
+                'c': Centner,
+                't': Ton,
+            }
 
         @self.router.get("", response_class=HTMLResponse, name='weight')
         async def view_weight_pages(request: Request, limit: int = 6):
@@ -34,17 +45,8 @@ class WeightApi:
                 'pdf-jpeg': 1,
             }
 
-            formats_str = {
-                'g': 'Грамм',
-                'mg': 'Милиграмм',
-                'mkg': 'Микрограмм',
-                'kg': 'Килогамм',
-                'c': 'Центнер',
-                't': 'Тонн',
-            }
-
-            from_str = formats_str[ff]
-            to_str = formats_str[tf]
+            from_str = self.formats_models[ff]().view_str()
+            to_str = self.formats_models[tf]().view_str()
 
             self.context = {'title': f'Сколько {to_str.lower()} в {from_str.lower()}е',
                          'h1': f'{from_str}ы в {to_str.lower()}ы',
@@ -53,7 +55,7 @@ class WeightApi:
                          'page': 'weight-input',
                          'item_name': f'{from_str}ы',
                          "main_text": '',
-                         'formats': formats_str,
+                         'formats': [(key, value().view_str()) for key, value in self.formats_models.items()],
                          'ff': ff,
                          'tf': tf}
 
@@ -64,17 +66,7 @@ class WeightApi:
         @self.router.get("/result/", response_class=HTMLResponse, name='weight-result')
         async def convert(request: Request, ff: str, tf: str, value: float):
 
-            formats_models = {
-                'mkg': Microgram,
-                'mg': Milligram,
-                'g': Gram,
-                'kg': Kilogram,
-                'c': Centner,
-                't': Ton,
-            }
-
-            model = formats_models.get(ff, Gram)
-
+            model = self.formats_models.get(ff, Gram)
             item = model(value=value, item_change=tf)
             result = item.convert()
             self.context.update({'result': result, 'value': value})

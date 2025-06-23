@@ -2,14 +2,19 @@ from pydantic import BaseModel
 
 
 class WeightModel(BaseModel):
-    value: float
-    item_change: str
+    value: float = None
+    item_change: str = None
+
+    def view_str(self):
+        return self.to_str
 
     def convert(self):
-        return 'Error'
+        new_equal = self.table[self.item_change]
+        return self.value * self.equal / new_equal
 
 
 class Gram(WeightModel):
+    to_str: str = 'Грамм'
 
     def convert(self):
         operations = {
@@ -26,6 +31,7 @@ class Gram(WeightModel):
 
 
 class Kilogram(WeightModel):
+    to_str: str = 'Килорамм'
 
     def convert(self):
         operations = {
@@ -41,6 +47,7 @@ class Kilogram(WeightModel):
 
 
 class Milligram(WeightModel):
+    to_str: str = 'Миллиграмм'
 
     def convert(self):
         operations = {
@@ -56,6 +63,7 @@ class Milligram(WeightModel):
 
 
 class Microgram(WeightModel):
+    to_str: str = 'Микрограмм'
 
     def convert(self):
         operations = {
@@ -71,6 +79,7 @@ class Microgram(WeightModel):
 
 
 class Centner(WeightModel):
+    to_str: str = 'Центнер'
 
     def convert(self):
         operations = {
@@ -86,6 +95,7 @@ class Centner(WeightModel):
 
 
 class Ton(WeightModel):
+    to_str: str = 'Тонн'
 
     def convert(self):
         operations = {

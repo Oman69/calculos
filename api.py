@@ -99,7 +99,7 @@ def search_tag(request: Request, tag: str, category_num: int):
     # Получить данные
     return templates.TemplateResponse(
         request=request, name="search_tag.html",
-        context={"links": filter_pages, 'h1': tag}
+        context={"links": filter_pages, 'h1': 'Результат поиска: ' + tag, 'title': tag}
     )
 
 

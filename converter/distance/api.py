@@ -6,6 +6,9 @@ from converter.distance.models import *
 
 
 class DistanceApi:
+    """
+    Класс конвертера "Расстояние и длина"
+    """
 
     def __init__(self):
         self.router = APIRouter(prefix='/distance', tags=['Distance'])
@@ -53,7 +56,7 @@ class DistanceApi:
                          'action': 'distance-result',
                          'page': 'distance-input',
                          'item_name': f'{from_str}ы',
-                         "main_text": '',
+                         "main_text": main_texts.get(ff + '-' + tf, 'Описание'),
                          'formats': [(key, value().view_str()) for key, value in self.formats_models.items()],
                          'ff': ff,
                          'tf': tf}
