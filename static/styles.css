@@ -241,10 +241,10 @@ a.selected {
 }
 
 #drop-zone {
-    border: 2px dashed #ccc;
-    padding: 70px;
+    border: 2px dashed #DA7748;
+    padding: 100px;
     text-align: center;
-    margin: 20px;
+    margin: 50px 20px;
 }
 
 #file-info {

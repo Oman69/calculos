@@ -27,7 +27,7 @@ class FilesConverterApi:
                                                                      'Docx',
                                                                      'Jpeg',
                                                                      'Png',
-                                                                     'Ico',
+                                                                     'Bmp',
                                                                      'Heic',
                                                                      'WebP',
                                                                      'Tiff'),

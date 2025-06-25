@@ -13,19 +13,17 @@
 {% endif %}
 <form class="format-form" action="">
     <div class="">
-      <select class="form-select" aria-label="Default select example" name="ff">
-      <option selected value="pdf">Pdf</option>
-      <option value="docx">Docx</option>
-      <option value="heic">Heic</option>
-      <option value="webp">WebP</option>
-      <option value="jpeg">Jpeg</option>
+      <select class="form-select" aria-label="Default select example" name="ff" id="form-ff">
+      {% for key in formats %}
+      <option value={{key}}>{{ key|capitalize }}</option>
+      {% endfor %}
       </select>
     </div>
     <div class="">
-      <select class="form-select" aria-label="Default select example" name="tf">
-      <option selected value="jpeg">Jpeg</option>
-      <option value="png">Png</option>
-      <option value="webp">WebP</option>
+      <select class="form-select" aria-label="Default select example" name="tf" id="form-tf">
+      {% for key in formats %}
+      <option value={{key}}>{{ key|capitalize }}</option>
+      {% endfor %}
       </select>
     </div>
     <div class="">
