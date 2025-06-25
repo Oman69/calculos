@@ -131,5 +131,11 @@ def robots():
     return data
 
 
+@app.get("/sitemap.xml")
+async def sitemap_file():
+    sitemap_path = "sitemap.xml"
+    return FileResponse(sitemap_path)
+
+
 if __name__ == "__main__":
     uvicorn.run("api:app", host="127.0.0.1", port=8000, reload=True)

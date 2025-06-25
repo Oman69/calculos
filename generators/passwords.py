@@ -15,7 +15,7 @@ class PasswordApi:
         async def password(request: Request):
             self.context.pop('result', None)
             self.context.update(
-                {'title': 'Генератор паролей | ',
+                {'title': 'Генератор паролей ',
                  'h1': 'Генератор паролей онлайн',
                  'h2': 'подобрать пароль легко',
                  'h3': 'Сгенерированные пароли',

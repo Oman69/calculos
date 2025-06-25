@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from converter.distance.api import distance_api
-from converter.area.area import area_api
+from converter.area.api import area_api
 from converter.files.files import files_converter_api
 from converter.weight.api import weight_api
 

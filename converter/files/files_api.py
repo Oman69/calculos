@@ -7,7 +7,7 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, UploadFile, File
 from starlette.templating import Jinja2Templates
 
-from converter.files.texts import pdf_jpeg
+from converter.files.texts import Pdf, Jpeg
 
 
 class ConverterApi:
@@ -137,12 +137,22 @@ class ConverterFunc:
             tf_cap = tf.capitalize()
 
             main_texts = {
-                          'pdf-jpeg': pdf_jpeg,
+                          'pdf': Pdf,
+                          'jpeg': Jpeg,
+                          # 'docx': Docx,
+                          # 'heic': Heic,
+                          # 'webp': WebP,
+                          # 'png': Png,
+                          # 'tiff': Tiff,
                          }
 
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер',
-                       'h1': ff_cap + ' в ' + tf_cap + ' онлайн',
-                       'main_text': main_texts.get(ff + '-' + tf)}
+                       'h1': f'Преобразовать {ff_cap} в {tf_cap} онлайн',
+                       'ff': ff_cap,
+                       'tf': tf_cap,
+                       'ff_txt': main_texts.get(ff, 'Описание исходного формата'),
+                       'tf_txt': main_texts.get(tf, 'Описание требуемого формата'),
+                       }
 
             # Получить данные
             return self.api.templates.TemplateResponse(

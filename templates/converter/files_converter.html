@@ -39,10 +39,62 @@
 </div>
 <div id="file-info"></div>
 
-{% if main_text %}
-<div class="main-descript">
-    {{ main_text | safe }}
+<div class="factors">
+    <div class="factors-item">
+        <div class="factors-item-icon">
+            <i class="bi bi-arrow-down-up"></i>
+        </div>
+        <div class="factors-item-txt">
+            <h5>Как конвертировать {{ ff }} в {{ tf }}</h5>
+            <p>Перетащите файл в формате <b>{{ ff }}</b> в поле для обработки или нажмите в любом месте для импорта.
+                Файлы <b>{{ ff }}</b> будут преобразованы в формат <b>{{ tf}}</b> </p>
+        </div>
+    </div>
+    <div class="factors-item">
+        <div class="factors-item-icon">
+            <i class="bi bi-shield-check"></i>
+        </div>
+        <div class="factors-item-txt">
+            <h5>Безопасность Ваших файлов</h5>
+            <p>Наши сервера очищаются от ваших файлов каждые <b>30 минут</b>. Третьи лица не имеют доступа
+                к этим данным</p>
+        </div>
+    </div>
+    <div class="factors-item">
+        <div class="factors-item-icon">
+            <i class="bi bi-gear"></i>
+        </div>
+        <div class="factors-item-txt">
+            <h5>Кастомные настройки</h5>
+            <p>По умолчанию файлы изображений генерируются с уровнем качества <b>300 dpi</b>.
+                Однако вы можете отрегулировать качество по своему усмотрению</p>
+        </div>
+    </div>
 </div>
-{% endif %}
+
+<div class="formats">
+    <div class="formats-item">
+        <div class="formats-item-icon">
+            <i class="bi bi-filetype-{{ff|lower}}"></i>
+        </div>
+        <p>{{ ff_txt | safe }}</p>
+    </div>
+    <div class="formats-icon">
+        <i class="bi bi-chevron-double-right"></i>
+    </div>
+    <div class="formats-item">
+        <div class="formats-item-icon">
+            <i class="bi bi-filetype-{{tf|lower if tf != 'Jpeg' else 'jpg'}}"></i>
+        </div>
+        <p>{{ tf_txt | safe }}</p>
+    </div>
+</div>
+
+<div class="main-descript">
+    <p>В современном мире цифровых технологий мы ежедневно сталкиваемся с необходимостью менять форматы файлов.
+        Документы, изображения, видео, аудио — всё это требует преобразования под разные задачи и устройства.
+        На этой странице вы найдете бесплатный онлайн конвертер <b>{{ ff | upper }}</b> в формат <b>{{ tf| upper }}</b>,
+        который облегчит ваши рабочие и личные задачи.</p>
+</div>
 
 {% endblock %}

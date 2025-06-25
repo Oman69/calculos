@@ -37,14 +37,13 @@
             <button type="submit" class="btn btn-primary">Рассчитать</button>
         </form>
 
-        {% if result %}
         <div class="result_field">
+        {% if result %}
             <h3>{{ item_name }}: {{ value }}</h3>
             <h3>{{ h3 }}: <span> {{ result }} </span></h3>
         {% endif %}
         {% if error %}
             <h3> <span> {{ error }} </span></h3>
-        </div>
         {% endif %}
         </div>
         <div class="schema-img">
@@ -52,7 +51,8 @@
             <img src="{{ url_for('static', path='images/logo.png') }}" alt="">
             {% endblock %}
         </div>
-        </div>
+    </div>
+</div>
 
 
 {% if main_text %}
@@ -60,6 +60,7 @@
     {{ main_text | safe }}
 </div>
 {% endif %}
+
 {% if similar_pages|length > 0 %}
 <h4>Похожие запросы</h4>
 <div class="similar-links">
@@ -70,4 +71,3 @@
 </div>
 {% endif %}
 {% endblock %}
-

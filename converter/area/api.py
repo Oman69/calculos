@@ -2,45 +2,46 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, Body
 from starlette.templating import Jinja2Templates
 import utils
-from converter.distance.models import *
+from converter.area.models import *
 
 
-class DistanceApi:
+class AreaApi:
     """
-    Класс конвертера "Расстояние и длина"
+    Класс конвертера "Площадь"
     """
 
     def __init__(self):
-        self.router = APIRouter(prefix='/distance', tags=['Distance'])
+        self.router = APIRouter(prefix='/area', tags=['Area'])
         self.templates = Jinja2Templates(directory="templates")
         self.context = {}
         self.formats_models = {
-                'mm': Millimeter,
                 'cm': Centimeter,
                 'dm': Decimeter,
                 'm': Meter,
                 'km': Kilometer,
                 'in': Inch,
                 'ft': Foot,
-                'ya': Yard,
+                'akr': Akr,
+                'ga': Hectare
+
             }
 
-        @self.router.get("", response_class=HTMLResponse, name='distance')
+        @self.router.get("", response_class=HTMLResponse, name='area')
         async def view_pages(request: Request, limit: int = 6):
 
-            cat_num = 32
+            cat_num = 33
             filter_pages = utils.select_converter_pages_by_category(cat_num, limit)
 
             # Получить данные
             return self.templates.TemplateResponse(
                 request=request, name="files.html", context={'links': filter_pages,
-                                                            'title': 'Расстояние и длина ',
-                                                            'h1': 'Расстояние и длина',
+                                                            'title': 'Площадь ',
+                                                            'h1': 'Площадь',
                                                             'tags': ('MM', 'CM', 'DM', 'M', 'KM', 'FT'),
-                                                            'page': 'distance-input',
+                                                            'page': 'area-input',
                                                             'category': cat_num})
 
-        @self.router.get("/", response_class=HTMLResponse, name='distance-input')
+        @self.router.get("/", response_class=HTMLResponse, name='area-input')
         async def data_input(request: Request, ff: str, tf: str):
 
             main_texts = {
@@ -53,8 +54,8 @@ class DistanceApi:
             self.context = {'title': f'Сколько {to_str.lower()}ов в {from_str.lower()}е',
                          'h1': f'{from_str}ы в {to_str.lower()}ы',
                          'h3': f'Итого {to_str.lower()}ов',
-                         'action': 'distance-result',
-                         'page': 'distance-input',
+                         'action': 'area-result',
+                         'page': 'area-input',
                          'item_name': f'{from_str}ы',
                          "main_text": main_texts.get(ff + '-' + tf, 'Описание'),
                          'formats': [(key, value().view_str()) for key, value in self.formats_models.items()],
@@ -65,10 +66,10 @@ class DistanceApi:
             return self.templates.TemplateResponse(
                 request=request, name="converter/converter.html", context=self.context)
 
-        @self.router.get("/result/", response_class=HTMLResponse, name='distance-result')
+        @self.router.get("/result/", response_class=HTMLResponse, name='area-result')
         async def convert(request: Request, ff: str, tf: str, value: float):
 
-            model = self.formats_models.get(ff, Millimeter)
+            model = self.formats_models.get(ff, Centimeter)
 
             item = model(value=value, item_change=tf)
             result = item.convert()
@@ -78,4 +79,4 @@ class DistanceApi:
                 request=request, name="converter/converter.html", context=self.context)
 
 
-distance_api = DistanceApi()
+area_api = AreaApi()
