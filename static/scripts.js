@@ -1,5 +1,6 @@
 // Получаем параметр из URL
 const urlParams = new URLSearchParams(window.location.search);
+const limit = urlParams.get('limit');
 const ff = urlParams.get('ff');
 const tf = urlParams.get('tf');
 
@@ -7,6 +8,11 @@ const tf = urlParams.get('tf');
 if (ff && tf) {
 document.getElementById('form-ff').value = ff;
 document.getElementById('form-tf').value = tf;
+}
+
+// Устанавливаем selected
+if (limit) {
+document.getElementById('selectMenu').value = limit;
 }
 
 

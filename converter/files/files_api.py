@@ -66,10 +66,14 @@ class ConverterApi:
 
         new_document.close()
 
-    async def convert_to_pdf(self, from_format: str, new_files: list):
-
-        # ToDo Добавить обработку Heic
-
+    async def convert_to_pdf(self, from_format: str, new_files: list, unite_files: bool = True):
+        """
+        Функция для конвертации файлов в PDF
+        :param from_format:
+        :param new_files:
+        :param unite_files:
+        :return:
+        """
         if from_format == 'heic':
 
             jpg_files = []
@@ -88,10 +92,21 @@ class ConverterApi:
                           self.is_valid_image_pillow(os.path.join('uploads', os.path.basename(file)))]
 
         images = [Image.open(f) for f in file_paths]
-        new_name = os.path.basename(new_files[0]).split('.')[0] + '.pdf'
-        output_path = os.path.join('output', new_name)
-        images[0].save(output_path, save_all=True, append_images=images[1:])
-        return [new_name]
+
+        if unite_files:
+            new_name = os.path.basename(new_files[0]).split('.')[0] + '.pdf'
+            output_path = os.path.join('output', new_name)
+            images[0].save(output_path, save_all=True, append_images=images[1:])
+            return [new_name]
+        else:
+            new_files = []
+            for file in images:
+                new_name = os.path.basename(file.filename).split('.')[0] + '.pdf'
+                output_path = os.path.join('output', new_name)
+                file.save(output_path)
+                new_files.append(new_name)
+            return new_files
+
 
     async def convert_file(self, filename: str, output_folder: str, img_fmt: str, ext: str):
         """
@@ -169,10 +184,11 @@ class ConverterFunc:
 
             data = await request.json()
             file_urls = data.get('file_urls')
+            unite_files = data.get('unite_files')
 
             try:
                 if tf == 'pdf':
-                    new_pdf = await self.api.convert_to_pdf(from_format=ff, new_files=file_urls)
+                    new_pdf = await self.api.convert_to_pdf(from_format=ff, new_files=file_urls, unite_files=unite_files)
                     result['new_images'].append(new_pdf)
                 else:
                     for url in file_urls:
@@ -182,6 +198,7 @@ class ConverterFunc:
                                                                  output_folder='output',
                                                                  ext=ff)
                         result['new_images'].append(new_images)
+
             except Exception as E:
                 result['error'] = f'Ошибка! Загрузите файл в формате {ff.capitalize()}.'
 

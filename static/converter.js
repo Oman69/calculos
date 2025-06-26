@@ -34,12 +34,19 @@ async function convertFiles(data) {
     document.getElementById("convertBtn").addEventListener("click", async () => {
         let current_url = window.location.href;
 
+        let unite_files_elem = document.getElementById("unite_files");
+        let unite_files = false;
+
+        if (unite_files_elem) {
+            unite_files = unite_files_elem.checked;
+        }
+
         const response = await fetch(current_url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({file_urls: data.file_urls})
+            body: JSON.stringify({file_urls: data.file_urls, unite_files: unite_files})
         });
 
         const result = await response.json();
@@ -93,11 +100,28 @@ async function uploadFiles(files) {
             return `<li>${fileName}</li>`;
         }).join('');
 
-        fileInfo.innerHTML = `
-            <p>Загружено ${data.file_urls.length} файлов:</p>
+        const urlParams = new URLSearchParams(window.location.search);
+        const tf = urlParams.get('tf');
+        let files_count = data.file_urls.length;
+
+        if (tf === 'pdf' && files_count > 1) {
+            fileInfo.innerHTML = `
+            <p>Загружено ${files_count} файлов:</p>
+            <ol>${filesList}</ol>
+            <div class="form-check form-switch form-check-unite">
+                  <label class="form-check-label" for="ascii_low">Объединить файлы в один ${tf.toUpperCase()}?</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="unite_files" name="unite_files" checked>
+            </div>
+            <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать все</button>
+        `;
+
+        } else {
+            fileInfo.innerHTML = `
+            <p>Загружено ${files_count} файлов:</p>
             <ol>${filesList}</ol>
             <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать все</button>
         `;
+        }
 
         await convertFiles(data);
 

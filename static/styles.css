@@ -328,6 +328,10 @@ a.selected {
 
 }
 
+.form-check-unite {
+    margin-bottom: 1em;
+}
+
 @media (max-width: 768px) {
   .main_form {
     grid-template-columns: none;

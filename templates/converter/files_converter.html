@@ -73,7 +73,7 @@
 <div class="formats">
     <div class="formats-item">
         <div class="formats-item-icon">
-            <i class="bi bi-filetype-{{ff|lower}}"></i>
+            <i class="bi bi-filetype-{{ff|lower if ff != 'Jpeg' else 'jpg'}}"></i>
         </div>
         <p>{{ ff_txt | safe }}</p>
     </div>

@@ -26,9 +26,7 @@
     <div class="link">
         <span>{{ item.name }}</span>
         <div class="link-img">
-            {% if item.image %}
-            <img src="{{ url_for('static', path=item.image) }}" alt="">
-            {% endif %}
+            <img src="{{ url_for('static', path='/images/' + item.ff + '.png') }}" alt="">
         </div>
     </div></a>
     {% endfor %}

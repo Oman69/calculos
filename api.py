@@ -1,4 +1,5 @@
 import os
+import uuid
 from typing import List
 
 import uvicorn
@@ -61,22 +62,18 @@ async def upload_file(files: List[UploadFile]):
 
     for file in files:
         # Получил путь к файлу
-        file_path = os.path.join(UPLOAD_DIR, file.filename)
+        new_uid = uuid.uuid4()
+        ext = os.path.splitext(file.filename)[1]
+        filename = str(new_uid) + ext
+        file_path = os.path.join(UPLOAD_DIR, filename)
 
         # Сохраняем файл
         with open(file_path, "wb") as buffer:
             buffer.write(await file.read())
 
-        response_data['file_urls'].append(f"/{UPLOAD_DIR}/{file.filename}")
+        response_data['file_urls'].append(f"/{UPLOAD_DIR}/{filename}")
 
     return response_data
-
-
-@app.get("/download/{filename}", response_class=FileResponse)
-async def download_file(filename: str):
-    # Реализация кода для получения и возврата запрошенного файла
-    file_path = os.path.join(OUTPUT_DIR, filename)
-    return FileResponse(path=file_path)
 
 
 @app.get("/search/", response_class=HTMLResponse, name='search_page')
