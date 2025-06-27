@@ -105,10 +105,10 @@ def sitemap(request: Request):
 
     geometry_pages = utils.select_main_pages_by_category(category=1)
     generators_pages = utils.select_main_pages_by_category(category=4)
-    weight_pages = utils.select_main_pages_by_category(category=31)
-    distance_pages = utils.select_main_pages_by_category(category=32)
-    area_pages = utils.select_main_pages_by_category(category=33)
-    files_pages = utils.select_main_pages_by_category(category=5)
+    weight_pages = utils.select_converter_pages_by_category(category=31)
+    distance_pages = utils.select_converter_pages_by_category(category=32)
+    area_pages = utils.select_converter_pages_by_category(category=33)
+    files_pages = utils.select_converter_pages_by_category(category=5)
 
     # Получить данные
     return templates.TemplateResponse(

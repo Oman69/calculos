@@ -7,7 +7,7 @@ from starlette.responses import HTMLResponse
 from fastapi import APIRouter, Request, UploadFile, File
 from starlette.templating import Jinja2Templates
 
-from converter.files.texts import Pdf, Jpeg, Docx
+from converter.files.texts import Pdf, Jpeg, Docx, Png, Webp, Heic, Bmp, Tiff
 
 
 class ConverterApi:
@@ -156,10 +156,11 @@ class ConverterFunc:
                           'pdf': Pdf,
                           'jpeg': Jpeg,
                           'docx': Docx,
-                          # 'heic': Heic,
-                          # 'webp': WebP,
-                          # 'png': Png,
-                          # 'tiff': Tiff,
+                          'png': Png,
+                          'webp': Webp,
+                          'heic': Heic,
+                          'bmp': Bmp,
+                          'tiff': Tiff,
                          }
 
             context = {'title': ff_cap + ' в ' + tf_cap + ' конвертер онлайн без регистрации',

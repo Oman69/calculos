@@ -4,8 +4,7 @@
 <div class="select-block">
     <span></span>
     <select class="form-select" id="selectMenu">
-        <option selected>Показать записей</option>
-        <option value="6">Показать: 6</option>
+        <option value="6" selected>Показать: 6</option>
         <option value="9">Показать: 9</option>
         <option value="12">Показать: 12</option>
         <option value="100">Показать: все</option>
@@ -23,10 +22,12 @@
 <div class="links-block">
     {% for item in links %}
     <a href="{{ url_for(page).include_query_params(ff=item.ff, tf=item.tf) }}">
-    <div class="link">
+    <div class="link converter-link">
         <span>{{ item.name }}</span>
-        <div class="link-img">
+        <div class="converter-img">
             <img src="{{ url_for('static', path='/images/' + item.ff + '.png') }}" alt="">
+            <img src="{{ url_for('static', path='/images/arrow.png') }}" alt="">
+            <img src="{{ url_for('static', path='/images/' + item.tf + '.png') }}" alt="">
         </div>
     </div></a>
     {% endfor %}

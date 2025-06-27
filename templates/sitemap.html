@@ -14,7 +14,7 @@
         <div class="">
             <h5>Вес и масса</h5>
             {% for item in weight_pages %}
-            <a href="{{ url_for(item.slug) }}">
+            <a href="{{ url_for('weight').include_query_params(ff=item.ff, tf=item.tf) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}
         </div>
@@ -22,15 +22,7 @@
         <div class="">
             <h5>Конвертеры файлов</h5>
             {% for item in files_pages %}
-            <a href="{{ url_for('files').include_query_params(ff=item.slug.split('_to_')[0], tf=item.slug.split('_to_')[1]) }}">
-            <div>{{ item.name }}</div></a>
-            {% endfor %}
-        </div>
-
-        <div class="">
-            <h5>Единицы площади</h5>
-            {% for item in area_pages %}
-            <a href="{{ url_for(item.slug) }}">
+            <a href="{{ url_for('files').include_query_params(ff=item.ff, tf=item.tf) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}
         </div>
@@ -44,9 +36,17 @@
         </div>
 
         <div class="">
+            <h5>Единицы площади</h5>
+            {% for item in area_pages %}
+            <a href="{{ url_for('area').include_query_params(ff=item.ff, tf=item.tf) }}">
+            <div>{{ item.name }}</div></a>
+            {% endfor %}
+        </div>
+
+        <div class="">
             <h5>Длина и расстояние</h5>
             {% for item in distance_pages %}
-            <a href="{{ url_for(item.slug) }}">
+            <a href="{{ url_for('distance').include_query_params(ff=item.ff, tf=item.tf) }}">
             <div>{{ item.name }}</div></a>
             {% endfor %}
         </div>
