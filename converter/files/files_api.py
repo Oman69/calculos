@@ -1,5 +1,8 @@
 import json
 import os
+import uuid
+import zipfile
+from typing import List
 import fitz
 import pillow_heif
 from PIL import Image
@@ -65,6 +68,23 @@ class ConverterApi:
             print(f"Страница {page_num + 1} сохранена как {output_path}")
 
         new_document.close()
+
+    async def create_archive(self, files: List):
+            """
+            Функция для создания архива с файлами
+            :param files: Список файлов
+            :return: Наименование архива
+            """
+
+            output_path = os.path.join('output', str(uuid.uuid4()) + '.zip')
+            with zipfile.ZipFile(output_path, 'w') as zipf:
+                for file in files:
+                    for part in file:
+                        file_path = os.path.join('output', part)
+                        # Добавляем файл, сохраняя относительный путь
+                        zipf.write(file_path)
+
+            return output_path
 
     async def convert_to_pdf(self, from_format: str, new_files: list, unite_files: bool = True):
         """
@@ -199,6 +219,9 @@ class ConverterFunc:
                                                                  output_folder='output',
                                                                  ext=ff)
                         result['new_images'].append(new_images)
+
+                archive_name = await self.api.create_archive(result['new_images'])
+                result['archive_name'] = archive_name
 
             except Exception as E:
                 result['error'] = f'Ошибка! Загрузите файл в формате {ff.capitalize()}.'

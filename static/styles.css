@@ -122,7 +122,7 @@ a {
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 2em;
     grid-auto-rows: 15vh;
-    padding: 20px 0;
+    padding: 20px 0 50px 0;
 }
 
 .links-block > a > .link {

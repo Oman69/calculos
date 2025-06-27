@@ -71,7 +71,10 @@ async function convertFiles(data) {
                 <h4>Конвертация завершена. Скачайте файлы по ссылкам ниже:</h4>
                 <div class="converted-files">
                     ${filesHtml}
-                </div>`;
+                </div>
+                <a href="/${result.archive_name}" download>
+                <button type="button" class="btn btn-outline-primary">
+                <i class="bi bi-download"></i> Скачать архив c файлами</button></a>`;
         } else {
             fileInfo.innerHTML = `<h4 style="color:red;">${result.error}</h4>`;
         }
@@ -112,14 +115,14 @@ async function uploadFiles(files) {
                   <label class="form-check-label" for="ascii_low">Объединить файлы в один ${tf.toUpperCase()}?</label>
                   <input class="form-check-input" type="checkbox" role="switch" id="unite_files" name="unite_files" checked>
             </div>
-            <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать все</button>
+            <button type="submit" id="convertBtn" class="btn btn-outline-primary"><i class="bi bi-arrow-repeat"></i> Конвертировать все</button>
         `;
 
         } else {
             fileInfo.innerHTML = `
             <p>Загружено ${files_count} файлов:</p>
             <ol>${filesList}</ol>
-            <button type="submit" id="convertBtn" class="btn btn-primary">Конвертировать все</button>
+            <button type="submit" id="convertBtn" class="btn btn-outline-primary"><i class="bi bi-arrow-repeat"></i> Конвертировать все</button>
         `;
         }
 

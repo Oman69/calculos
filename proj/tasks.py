@@ -1,7 +1,6 @@
 import os
 from celery.schedules import crontab
 from celery_app import app
-from datetime import timedelta
 
 
 def delete_files_in_folder(folder):
@@ -37,9 +36,9 @@ app.conf.beat_schedule = {
         'schedule': crontab(hour=9, minute=30),  # Каждый день в 9:30
     },
 
-    'run-every-15-minutes': {
+    'run-every-60-minutes': {
         'task': 'tasks.clear_folders',
         # 'schedule': timedelta(seconds=60),
-        'schedule': crontab(minute='*/15'),  # every 15 minutes
+        'schedule': crontab(minute='*/60'),  # every 60 minutes
     },
 }
