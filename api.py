@@ -1,7 +1,6 @@
 import os
 import uuid
 from typing import List
-
 import uvicorn
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import HTMLResponse
@@ -124,7 +123,7 @@ def sitemap(request: Request):
 
 @app.get('/robots.txt', response_class=PlainTextResponse)
 def robots():
-    data = """User-agent: *\nClean-param: utm\nHost: https://calculos.ru\nSitemap: https://calculos.ru/sitemap.xml"""
+    data = """User-agent: *\nAllow: *\nClean-param: utm\nHost: https://calculos.ru\nSitemap: https://calculos.ru/sitemap.xml"""
     return data
 
 
