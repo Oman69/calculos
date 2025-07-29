@@ -12,19 +12,19 @@ class EquTriangleApi:
         self.router = APIRouter(prefix='/equ_triangle', tags=['EquTriangle'])
         self.templates = Jinja2Templates(directory="templates")
         self.figure = 'равностороннего треугольника'
-        self.context = {'title': 'Найти площадь ' + self.figure + ' | ',
-                        'h1': 'Площадь ' + self.figure,
-                        'h2': 'найти через сторону',
-                        'h3': 'Площадь ' + self.figure + ' равна',
-                        'action': 'equ_triangle_area_result',
-                        'main_form': main_forms.equ_triangle,
-                        'main_text': texts.equ_triangle_area}
+        self.context = {'h2': 'найти через сторону'}
 
         @self.router.get("/area/", response_class=HTMLResponse, name='equ_triangle_area')
         async def area(request: Request):
             similar_pages = await get_similar_page('Площадь')
             self.context.pop('result', None)
-            self.context['similar_pages'] = similar_pages
+            self.context.update({'title': 'Найти площадь ' + self.figure + ' | ',
+                        'h1': 'Площадь ' + self.figure,
+                        'h3': 'Площадь ' + self.figure + ' равна',
+                        'action': 'equ_triangle_area_result',
+                        'main_form': main_forms.equ_triangle,
+                        'main_text': texts.equ_triangle_area,
+                        'similar_pages': similar_pages})
 
             # Получить данные
             return self.templates.TemplateResponse(
