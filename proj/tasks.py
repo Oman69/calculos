@@ -1,6 +1,6 @@
 import os
 from celery.schedules import crontab
-from celery_app import app
+from .celery_app import app
 
 
 def delete_files_in_folder(folder):

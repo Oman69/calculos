@@ -4,7 +4,7 @@ app = Celery(
     'celery',
     broker='amqp://guest:guest@localhost:5672//',
     backend='rpc://',
-    include=['tasks']
+    include=['proj.tasks']
 )
 
 # Настройки Celery
